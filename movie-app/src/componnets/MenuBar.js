@@ -6,16 +6,24 @@ function MenuBar(props) {
 
     return (
         <div>
+            <nav className="nav flex-column bg-black w-25 vh-100 text-white">
+                <div className="d-flex flex-column align-items-center">
+                    <img src="/logos-choose-one/movie-time-1.png"
+                         alt="logo"
+                         className=" w-100 mt-5 mt-md-0" />
+                </div>
 
-            <h1>An example of browser-router</h1>
+                <Link  to="/" className="nav-link fs-4 mt-5 mb-4 text-light-emphasis">Home</Link>
+                <Link  to="/" className="nav-link fs-4 mb-4 text-light-emphasis">option1</Link>
+                <Link  to="/" className="nav-link fs-4 mb-4 text-light-emphasis">option2</Link>
+                <Link  to="/" className="nav-link fs-4 mb-4 text-light-emphasis">option3</Link>
 
-            <Link to="/">Home</Link> {' '} | {' '}
-            {/*<Link to="/otherpage">Other page</Link> {' '} | {' '}*/}
-            {/*<Link to="/params/12">Params page</Link>*/}
+                <div className="text-center fs-6 p-3 bg-dark bg-opacity-100 position-absolute bottom-0 w-25">
+                    <span>©{new Date().getFullYear()} <br/></span>
+                    <span className="d-none d-md-inline">ARIEL-AMON & NOAM-MIRJANI</span>
+                </div>
+            </nav>
 
-            {/* An <Outlet> renders whatever child route is currently active,
-          so you can think about this <Outlet> as a placeholder for
-          the child routes we defined above. */}
             <Outlet />
 
         </div>

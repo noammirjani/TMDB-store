@@ -3,6 +3,8 @@ import {BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "react-scroll-to-top";
 import MenuBar from "./componnets/MenuBar";
 import Home from "./componnets/Home";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 const App = () => {
     return (
