@@ -1,32 +1,42 @@
-
-import {Link} from 'react-router-dom';
-import {Outlet} from "react-router";
+import {Link, Outlet} from 'react-router-dom';
 
 function MenuBar(props) {
-
     return (
-        <div>
-            <nav className="nav flex-column bg-black w-25 vh-100 text-white">
-                <div className="d-flex flex-column align-items-center">
-                    <img src="/logos-choose-one/movie-time-1.png"
-                         alt="logo"
-                         className=" w-100 mt-5 mt-md-0" />
-                </div>
+        <>
+            <nav className="navbar navbar-expand bg-dark border-bottom">
+                <div className="container-fluid">
+                    <img src="/assets/logo.png" alt="logo" className="top-0 start-0" />
 
-                <Link  to="/" className="nav-link fs-4 mt-5 mb-4 text-light-emphasis">Home</Link>
-                <Link  to="/" className="nav-link fs-4 mb-4 text-light-emphasis">option1</Link>
-                <Link  to="/" className="nav-link fs-4 mb-4 text-light-emphasis">option2</Link>
-                <Link  to="/" className="nav-link fs-4 mb-4 text-light-emphasis">option3</Link>
-
-                <div className="text-center fs-6 p-3 bg-dark bg-opacity-100 position-absolute bottom-0 w-25">
-                    <span>©{new Date().getFullYear()} <br/></span>
-                    <span className="d-none d-md-inline">ARIEL-AMON & NOAM-MIRJANI</span>
+                    <div className="collapse navbar-collapse justify-content-center">
+                        <div className="navbar-nav fs-3">
+                            <Link to="/"
+                                  className="nav-link text-white border rounded-pill mx-3 hover-opacity">
+                                Home
+                            </Link>
+                            <Link to="/"
+                                  className="nav-link text-white border rounded-pill mx-3 hover-opacity">
+                                Cart
+                            </Link>
+                            <Link to="/"
+                                  className="nav-link text-white border rounded-pill mx-3 hover-opacity">
+                                Checkout
+                            </Link>
+                        </div>
+                    </div>
                 </div>
             </nav>
 
-            <Outlet />
 
-        </div>
+            <Outlet />
+            <style>
+                {`
+        .hover-opacity:hover {
+          opacity: 0.50;
+        }
+        `}
+            </style>
+        </>
     );
 }
+
 export default MenuBar;
