@@ -1,21 +1,26 @@
 import React from "react";
 import {Col} from 'react-bootstrap';
+import '../styles/MovieGrid.css'
+
 
 function MovieCard ({movie}) {
 
-    const movieData = movie;
+   // const movieData = movie;
+
     const price = 3.99;
     const imageUrl = "https://image.tmdb.org/t/p/w500"
 
     return(
         <Col>
-            <div className="card shadow-sm">
-                <img src={imageUrl + movie.poster_path} className="bd-placeholder-img card-img-top" width="100%" height="300" alt="Placeholder" />
-                <div className="card-body">
-                    {/*<p className="card-text" ></p>*/}
-                    <h5 className={`card-title ${'text-uppercase font-weight-bold text-center'} ${'letter-spacing-2 '}`}>{movie.title}</h5>
+            <div className="card shadow-sm justify-content-center">
+            <img src={imageUrl + movie.poster_path}
+                     className="bd-placeholder-img card-img-top img"
+                     alt="Placeholder" />
+                <div className="card-body custom-card-body text-center">
 
-                    <div className="d-flex justify-content-between align-items-center">
+                    <p className={`card-row row card-title text-uppercase fs-6 font-weight-bold text-center letter-spacing-2 text-wrap`}>{movie.title}</p>
+
+                    <div className="d-flex justify-content-between align-items-center" >
                         <div className="btn-group">
                             <button type="button" className="btn btn-success">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -28,7 +33,7 @@ function MovieCard ({movie}) {
                             <button type="button" className="btn btn-primary">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      className="bi bi-arrows-angle-expand" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
+                                    <path
                                           d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z"></path>
                                 </svg>
 

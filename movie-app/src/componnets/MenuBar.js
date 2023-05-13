@@ -7,7 +7,8 @@ function MenuBar() {
 
     const optionsList =  menuOptions.map( (op) => {
         return <li className="nav-item col-6 mx-auto my-1">
-            <Link to={`/${op === 'home' ? '' : op}`} className="nav-link text-white border rounded-pill  hover-opacity">
+            <Link to={`/${op === 'home' ? '' : op}`}
+                  className="nav-link text-white border rounded-pill hover-opacity text-capitalize">
                 {op}
             </Link>
         </li>;
@@ -15,10 +16,10 @@ function MenuBar() {
 
     return (
         <>
-            <nav className="navbar navbar-expand-md navbar-dark bg-dark border-bottom">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
                 <div className="container-fluid">
                     <Link to="/" className="navbar-brand">
-                        <img src="/assets/logo.png" alt="logo" className="top-0 start-0"/>
+                        <img src="/assets/logo.png" alt="logo" className="top-0 start-0 logo"/>
                     </Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                         aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
