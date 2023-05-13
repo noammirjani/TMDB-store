@@ -1,0 +1,52 @@
+.title-word {
+    animation: color-animation 4s linear infinite;
+}
+
+.title-word-1 {
+    --color-1: #543c40;
+    --color-2: #5e483a;
+    --color-3: #799f9e;
+}
+
+.title-word-2 {
+    --color-1: #83575f;
+    --color-2: #94825d;
+    --color-3: #2e868c;
+}
+
+.title-word-3 {
+    --color-1: #653535;
+    --color-2: #ab873e;
+    --color-3: #4a7c91;
+}
+
+.title-word-4 {
+    --color-1: #721e28;
+    --color-2: #b6b189;
+    --color-3: #07748c;
+}
+
+@keyframes color-animation {
+    0%    {color: var(--color-1)}
+    32%   {color: var(--color-1)}
+    33%   {color: var(--color-2)}
+    65%   {color: var(--color-2)}
+    66%   {color: var(--color-3)}
+    99%   {color: var(--color-3)}
+    100%  {color: var(--color-1)}
+}
+
+/* Here are just some visual styles. 🖌 */
+
+.container-words {
+    display: grid;
+    place-items: center;
+    text-align: center;
+}
+
+.title-words {
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+    font-weight: 800;
+    font-size: 6vw;
+    text-transform: uppercase;
+}

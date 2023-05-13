@@ -1,9 +1,22 @@
-
-
 .custom-card-body {
-    height: 135px; /* Set the desired height here */
+    height: 135px;
+    background-color: rgba(35, 44, 65, 0.4);
 }
 
-.card-row{
+.card {
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.1);
+}
+
+.card-row {
     height: 65px;
+}
+
+@media (max-width: 576px) {
+    .card:hover {
+        transform: none;
+    }
 }

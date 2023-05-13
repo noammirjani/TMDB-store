@@ -13,3 +13,11 @@
     max-width: 800px;
     max-height: 180px;
 }
+
+.custom-dropdown-menu {
+    width: 300px;
+}
+
+.text-cart{
+    font-size: 2vw;
+}
