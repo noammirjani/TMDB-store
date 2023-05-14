@@ -1,10 +1,9 @@
 import { Modal, Button } from 'react-bootstrap';
 
-function CardExtend({showModal,onClose}){
-
-    return(
+function CardExtend({ showModal, onClose }) {
+    return (
         <>
-            <Modal show={showModal} onHide={() => onClose(false)} >
+            <Modal show={showModal} onHide={() => onClose(false)} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Modal heading</Modal.Title>
                 </Modal.Header>
@@ -15,9 +14,6 @@ function CardExtend({showModal,onClose}){
                     <Button variant="secondary" onClick={() => onClose(false)}>
                         Close
                     </Button>
-                    {/*<Button variant="primary" onClick={props.handleSave}>*/}
-                    {/*    Save Changes*/}
-                    {/*</Button>*/}
                 </Modal.Footer>
             </Modal>
         </>

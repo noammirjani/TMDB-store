@@ -26,6 +26,12 @@ function MoviesGrid (props){
             }
 
             function getMoviesData() {
+
+                if(props.url === "") {
+                    setCards([]);
+                    return;
+                }
+
                 fetch(url, {
                     method: 'GET',
                     headers: {
