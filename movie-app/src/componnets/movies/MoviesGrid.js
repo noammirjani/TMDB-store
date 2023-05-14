@@ -4,46 +4,47 @@ import MovieCard from './MovieCard';
 
 function MoviesGrid (props){
 
-    //const [url, setUrl] = useState(props.url);
+    const [url, setUrl] = useState('');
     const [cards, setCards] = useState([]);
 
     useEffect(() => {
-        // This function will be called whenever the `props.url` value changes
-        function handleResponse(res) {
-            if (!res.ok) {
-                throw new Error(`${res.status} ${res.statusText}`);
-            }
-            return res.json();
-        }
-
-        function handleJson(jsonObj) {
-            buildMovieCard(jsonObj);
-            console.log("The Json returned is ", jsonObj)
-        }
-
-        function handleError(error) {
-            // setError("An error from movies website is: " + error.toString());
-            console.log(error.toString())
-        }
-
-        function getMoviesData() {
-
-            fetch(props.url, {
-                method: 'GET',
-                headers: {
-                    accept: 'application/json',
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNzQ2ZGRkMDVlYjNiMjAxOGIwYTZjMzhhN2RlZjk1ZCIsInN1YiI6IjY0NThlMjdjMWI3MGFlMDE0NWVkNzdlNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.w46933noO_o7Ch2z1y0ogBxrkuC5WlS14o11ltrZ2sY'
+        if (url !== '') { // Only call the API if url is not empty
+            function handleResponse(res) {
+                if (!res.ok) {
+                    throw new Error(`${res.status} ${res.statusText}`);
                 }
-            })
-                .then(handleResponse)
-                .then(handleJson)
-                .catch(handleError);
+                return res.json();
+            }
+
+            function handleJson(jsonObj) {
+                buildMovieCard(jsonObj);
+                console.log("The Json returned is ", jsonObj)
+            }
+
+            function handleError(error) {
+                console.log(error.toString())
+            }
+
+            function getMoviesData() {
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        accept: 'application/json',
+                        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNzQ2ZGRkMDVlYjNiMjAxOGIwYTZjMzhhN2RlZjk1ZCIsInN1YiI6IjY0NThlMjdjMWI3MGFlMDE0NWVkNzdlNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.w46933noO_o7Ch2z1y0ogBxrkuC5WlS14o11ltrZ2sY'
+                    }
+                })
+                    .then(handleResponse)
+                    .then(handleJson)
+                    .catch(handleError);
+            }
+
+            getMoviesData();
         }
+    }, [url]);
 
-        getMoviesData();
+    useEffect(() => {
+        setUrl(props.url);
     }, [props.url]);
-
-
 
     function buildMovieCard(data){
         console.log("DATA IS: " , data)

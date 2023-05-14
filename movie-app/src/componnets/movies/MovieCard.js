@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Col} from 'react-bootstrap';
 import '../../styles/MovieGrid.css'
-// import CardExtend from "./CardExtend";
+import CardExtend from "./CardExtend";
 // import {createPortal} from "react-dom";
 
 
@@ -10,7 +10,7 @@ function MovieCard ({movie}) {
    // const movieData = movie;
     const [showModal, setShowModal] = useState(false);
     const price = 3.99;
-    const imageUrl = "https://image.tmdb.org/t/p/w500"
+    const imageUrl = "https://image.tmdb.org/t/p/w500";
 
     return(
         <>
@@ -38,6 +38,7 @@ function MovieCard ({movie}) {
                                           d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z"></path>
                                 </svg>
                             </button>
+                            {showModal && <CardExtend showModal={showModal} onClose={setShowModal}/>}
 
                         </div>
                         <small className="text-body-secondary">{price+"$"}</small>
