@@ -2,6 +2,7 @@ import MoviesGrid from "../movies/MoviesGrid";
 import React, { useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import '../../styles/home.css'
+export const UserContext = React.createContext();
 
 const HomePage = () => {
     const [typedText, setTypedText] = useState('');
@@ -48,6 +49,7 @@ const HomePage = () => {
                     </Row>
                 </Container>
             </Container>
+
             <MoviesGrid url={"https://api.themoviedb.org/3/movie/popular?"} />
 
         </>
