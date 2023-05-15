@@ -21,7 +21,7 @@ function MovieCard ({movie}) {
                      className="bd-placeholder-img card-img-top img"
                      alt="Placeholder" />
                 <div className="card-body custom-card-body text-center">
-                    <p className={`card-row row card-title text-uppercase fs-6 font-weight-bold text-center letter-spacing-2 text-wrap`}>{movie.title}</p>
+                    <p className={`card-row row card-title text-uppercase fs-6 font-weight-bold justify-content-center letter-spacing-2 text-wrap`}>{movie.title}</p>
 
                     <div className="d-flex justify-content-between align-items-center" >
                         <div className="btn-group">
@@ -42,7 +42,7 @@ function MovieCard ({movie}) {
                             {showModal && <CardExtend movieImage={movieImage} movie={movie} showModal={showModal} onClose={setShowModal}/>}
 
                         </div>
-                        <small className="text-body-secondary">{price+"$"}</small>
+                        <small className="text-white">{price+"$"}</small>
                     </div>
                 </div>
             </div>
