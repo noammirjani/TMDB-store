@@ -38,6 +38,13 @@
     color: #92ec56;
 }
 
+.input:not(:placeholder-shown):not(:empty)+ .label {
+    font-size: 20px;
+    top: 8px;
+    left: 120px;
+    color: #92ec56;
+}
+
 .input:focus ~ .label {
     font-size: 20px;
     top: 8px;
