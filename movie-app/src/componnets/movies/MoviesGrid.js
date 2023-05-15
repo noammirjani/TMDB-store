@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react';
 import MovieCard from './MovieCard';
 
 function MoviesGrid (props){
-
+    const apiKey ="eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNzQ2ZGRkMDVlYjNiMjAxOGIwYTZjMzhhN2RlZjk1ZCIsInN1YiI6IjY0NThlMjdjMWI3MGFlMDE0NWVkNzdlNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.w46933noO_o7Ch2z1y0ogBxrkuC5WlS14o11ltrZ2sY"
     const [url, setUrl] = useState('');
     const [cards, setCards] = useState([]);
 
@@ -27,16 +27,16 @@ function MoviesGrid (props){
 
             function getMoviesData() {
 
-                if(props.url === "") {
+                if (props.url === "") {
                     setCards([]);
                     return;
                 }
 
-                fetch(url, {
+                fetch(url + "&page=1&include_adult=false&language=en-US", {
                     method: 'GET',
                     headers: {
                         accept: 'application/json',
-                        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNzQ2ZGRkMDVlYjNiMjAxOGIwYTZjMzhhN2RlZjk1ZCIsInN1YiI6IjY0NThlMjdjMWI3MGFlMDE0NWVkNzdlNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.w46933noO_o7Ch2z1y0ogBxrkuC5WlS14o11ltrZ2sY'
+                        Authorization: `Bearer ${apiKey}`
                     }
                 })
                     .then(handleResponse)
@@ -44,7 +44,7 @@ function MoviesGrid (props){
                     .catch(handleError);
             }
 
-            getMoviesData();
+                getMoviesData();
         }
     }, [url]);
 
@@ -64,7 +64,7 @@ function MoviesGrid (props){
         <>
             <Container className="mt-5 py-5 container container-fluid">
                 <Row className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
-                    {cards}
+                    {cards && cards}
                 </Row>
             </Container>
         </>

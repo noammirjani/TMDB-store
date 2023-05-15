@@ -1,0 +1,86 @@
+.container-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-bar {
+    height: 88px;
+    width: 800px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 0 0 20px;
+    position: relative;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.input {
+    border: none;
+    height: 45px;
+    width: 700px;
+    color: transparent;
+    font-size: 30px;
+    outline: none;
+    text-align: center;
+    background-clip: text;
+    -webkit-background-clip: text;
+    text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+}
+
+.input:not(:placeholder-shown) + .label {
+    font-size: 20px;
+    top: 8px;
+    left: 120px;
+    color: #92ec56;
+}
+
+.input:focus ~ .label {
+    font-size: 20px;
+    top: 8px;
+    left: 120px;
+    color: #0f8fda;
+    transition: all 0.5s ease;
+}
+
+.label {
+    font-size: 30px;
+    color: #d00000;
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    transition: all 0.5s ease;
+}
+
+.search-btn {
+    background: linear-gradient(to right, #f30b0b, #d30b0b);
+    border-radius: 40px;
+    height: 80px;
+    min-width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    right: 5px;
+    position: absolute;
+    transition: all 1s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.highlight {
+    width: 0px;
+    height: 2px;
+    background: #1885c5;
+    position: absolute;
+    bottom: 8px;
+    transition: all 1s ease;
+}
+
+.input:focus ~ .highlight {
+    width: 680px;
+    transition: all 1s ease;
+}

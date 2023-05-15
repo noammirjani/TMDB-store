@@ -11,6 +11,7 @@ function Search(){
         <>
             <SearchBar selectedFilterType={selectedFilterType}
                        setSelectedFilterType={setSelectedFilterType}
+                       setUrl={setFilterUrl}
             />
             <MoviesGrid url={filterUrl}/>
         </>

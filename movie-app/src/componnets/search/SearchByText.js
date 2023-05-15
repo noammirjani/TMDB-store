@@ -1,15 +1,33 @@
 import {Row} from "react-bootstrap";
 import '../../styles/Search.css'
+import {useState} from "react";
 
 function SearchByText({filterName, setUrl}){
+
+    const [filterValue, setFilterVal] = useState("");
+
+    function handleChange(event){
+        setFilterVal(event.target.value);
+    }
+
+    function handleClick(){
+        if(filterValue.trim()) {
+
+            if(filterName === 'movie name')
+                setUrl(`https://api.themoviedb.org/3/search/movie?query=${filterValue}`)
+
+            if(filterName === 'actor name')
+               setUrl(`https://api.themoviedb.org/3/person/${filterValue}/movie_credits`)
+        }
+    }
 
     return(
         <Row className="container-search  py-5 ">
                 <div className="search-bar">
-                    <input type="text" className="input placeholder text-white bg-info" placeholder="&nbsp;" />
+                    <input type="text" onChange={handleChange} className="input placeholder text-white bg-info" placeholder="&nbsp;"/>
                     <span className="label">Search by {filterName}</span>
                     <span className="highlight"></span>
-                    <button className="search-btn">
+                    <button className="search-btn" onClick={handleClick}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              className="bi bi-search" viewBox="0 0 16 16">
                             <path

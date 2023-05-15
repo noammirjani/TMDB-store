@@ -48,7 +48,7 @@ const HomePage = () => {
                     </Row>
                 </Container>
             </Container>
-            <MoviesGrid url={"https://api.themoviedb.org/3/movie/popular?language=en-US&page=1"} />
+            <MoviesGrid url={"https://api.themoviedb.org/3/movie/popular?language=en-US"} />
 
         </>
     );
