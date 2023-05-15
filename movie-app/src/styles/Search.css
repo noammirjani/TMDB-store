@@ -6,7 +6,7 @@
 
 .search-bar {
     height: 88px;
-    width: 800px;
+    /*width: 900px;*/
     border-radius: 40px;
     display: flex;
     align-items: center;
@@ -18,17 +18,18 @@
 .input {
     border: none;
     height: 45px;
-    width: 700px;
+    width: 900px;
     color: transparent;
-    font-size: 30px;
+    font-size: 40px;
     outline: none;
     text-align: center;
     background-clip: text;
     -webkit-background-clip: text;
-    text-fill-color: transparent;
-    -webkit-text-fill-color: transparent;
     background-image: linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+    margin: 0 auto; /* Center the input horizontally */
+    caret-color: #0f8fda; /* Add the caret color */
 }
+
 
 .input:not(:placeholder-shown) + .label {
     font-size: 20px;
@@ -81,6 +82,26 @@
 }
 
 .input:focus ~ .highlight {
-    width: 680px;
+    width: 80%; /* Default width for smaller screens */
+    right: 10%; /* Default position for smaller screens */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     transition: all 1s ease;
+}
+
+/* Media query for medium screens */
+@media (min-width: 576px) and (max-width: 991px) {
+    .input:focus ~ .highlight {
+        width: 500px; /* Width for medium screens */
+        right: 150px; /* Position for medium screens */
+    }
+}
+
+/* Media query for larger screens */
+@media (min-width: 992px) {
+    .input:focus ~ .highlight {
+        width: 800px; /* Width for larger screens */
+        right: 300px; /* Position for larger screens */
+    }
 }

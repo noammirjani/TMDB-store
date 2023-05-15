@@ -6,7 +6,7 @@ function SearchByText({filterName, setUrl}){
     return(
         <Row className="container-search  py-5 ">
                 <div className="search-bar">
-                    <input type="text" className="input" placeholder="&nbsp;" />
+                    <input type="text" className="input placeholder text-white bg-info" placeholder="&nbsp;" />
                     <span className="label">Search by {filterName}</span>
                     <span className="highlight"></span>
                     <button className="search-btn">
