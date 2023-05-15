@@ -25,9 +25,9 @@ function MenuBar() {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarCollapse">
                         <ul className="navbar-nav justify-content-center text-center mx-auto">
-                            <MenuButton optionIcon={icones[1]} optionName={"home"} />
-                            <MenuButton optionIcon={icones[2]} optionName={"search"} />
-                            <MenuButton optionIcon={icones[3]} optionName={"cart"} />
+                            <MenuButton optionIcon={icones[0]} optionName={"home"} />
+                            <MenuButton optionIcon={icones[1]} optionName={"search"} />
+                            <MenuButton optionIcon={icones[2]} optionName={"cart"} />
                         </ul>
                     </div>
                 </div>

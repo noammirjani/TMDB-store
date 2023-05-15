@@ -1,11 +1,11 @@
 import { Modal, Button } from 'react-bootstrap';
 
-function CardExtend({ showModal, onClose }) {
+function CardExtend({ movie,showModal, onClose }) {
     return (
         <>
             <Modal show={showModal} onHide={() => onClose(false)} centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>movie.original_title</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <p>Modal body text goes here.</p>
