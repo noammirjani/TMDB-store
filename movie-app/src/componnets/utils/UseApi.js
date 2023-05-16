@@ -8,6 +8,7 @@ const useApi = (initialUrl, initialData) => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${apiKey}`,
     };
+    const defaultFilters="&page=1&include_adult=false&language=en-US"
 
     const [data, setData] = useState(initialData); // data to be fetched
     const [url, setUrl] = useState(initialUrl); // any change on this state variable will trigger a fetch
@@ -16,12 +17,15 @@ const useApi = (initialUrl, initialData) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            if(url === "") return;
+            if(url === "") {
+                setData([])
+                return;
+            }
 
             setIsError(false);
             setIsLoading(true);
             try {
-                const result = await axios.get(url, { headers });
+                const result = await axios.get(url+defaultFilters, { headers });
                 setData(result.data.results); // set data state
                 console.log("did the fetch")
             } catch (error) {
@@ -39,18 +43,3 @@ const useApi = (initialUrl, initialData) => {
 };
 
 export default useApi;
-
-/**
- * function handleJson(jsonObj) {
- *                 if(jsonObj.results.length == 0) {
- *                     console.log("Empty", jsonObj)
- *                     setCards([])
- *                     setUserInfo(" Not found...🔍")
- *                 }
- *                 else {
- *                     setUserInfo("")
- *                     console.log("The Json returned is ", jsonObj)
- *                     buildMovieCard(jsonObj);
- *                 }
- *             }
- */

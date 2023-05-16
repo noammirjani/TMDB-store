@@ -46,7 +46,7 @@ function MoviesGrid(props) {
                     {cards}
                 </Row>
                 <Row>
-                    {userInfo && <UserMessage userInfo={userInfo} />}
+                    {userInfo && <UserMessage userInfo={userInfo} isAlert={false} />}
                 </Row>
             </Container>
         </>

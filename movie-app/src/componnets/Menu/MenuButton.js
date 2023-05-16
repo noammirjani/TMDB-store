@@ -5,12 +5,13 @@ import SvgIcon from "../utils/SvgIcon";
 
 function MenuButton({ optionName }) {
 
+    const btnClasses = "nav-link text-white border rounded-pill hover-opacity text-capitalize";
+
     const getButtonContent = () => {
         if (optionName === 'cart') {
             return (
                 <div className="dropdown">
-                    <div className="btn nav-link text-white border rounded-pill hover-opacity text-capitalize dropdown-toggle"
-                         data-bs-toggle="dropdown" aria-expanded="false">
+                    <div className={`btn dropdown-toggle ${btnClasses}`} data-bs-toggle="dropdown" aria-expanded="false">
                         {optionName + '   '}
                         <SvgIcon name={optionName} size={16} />
                     </div>
@@ -20,8 +21,7 @@ function MenuButton({ optionName }) {
         }
 
         return (
-            <Link to={`/${optionName === 'home' ? '' : optionName}`}
-                  className="nav-link text-white border rounded-pill hover-opacity text-capitalize">
+            <Link to={`/${optionName === 'home' ? '' : optionName}`} className={btnClasses}>
                 {optionName + '  '}
                 <SvgIcon name={optionName} size={16} />
             </Link>
@@ -36,3 +36,4 @@ function MenuButton({ optionName }) {
 }
 
 export default MenuButton;
+

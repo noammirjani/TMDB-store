@@ -10,7 +10,7 @@ function SearchByText({ onChange, onClick, placeholder }) {
     }
 
     return (
-        <Row className="container container-search py-5">
+        <Row className="container container-search">
             <div className="search-bar">
                 <input type="text" onChange={handleChange}  placeholder="&nbsp;"
                        className="input placeholder text-white bg-info" required
