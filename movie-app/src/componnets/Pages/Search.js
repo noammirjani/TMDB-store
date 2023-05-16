@@ -1,6 +1,6 @@
 import SearchBar from "../search/SearchBar";
 import {useState} from "react";
-import MoviesGrid from "../movies/MoviesGrid";
+import MoviesGrid from "../moviesDisplay/MoviesGrid";
 
 function Search(){
     const [selectedFilterType, setSelectedFilterType] = useState("movie name");

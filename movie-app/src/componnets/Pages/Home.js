@@ -1,4 +1,4 @@
-import MoviesGrid from "../movies/MoviesGrid";
+import MoviesGrid from "../moviesDisplay/MoviesGrid";
 import React, { useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import '../../styles/home.css'

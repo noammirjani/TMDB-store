@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "react-scroll-to-top";
-import MenuBar from "./componnets/MenuBar";
+import MenuBar from "./componnets/Menu/MenuBar";
 import Home from "./componnets/Pages/Home";
 import Search from "./componnets/Pages/Search";
 import "bootstrap/dist/css/bootstrap.min.css";

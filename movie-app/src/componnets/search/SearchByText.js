@@ -1,7 +1,6 @@
 import {Row} from "react-bootstrap";
 import '../../styles/Search.css'
 import {useState} from "react";
-import SvgBtn from "../movies/SvgBtn";
 
 
 function SearchByText({filterName, setUrl}){
