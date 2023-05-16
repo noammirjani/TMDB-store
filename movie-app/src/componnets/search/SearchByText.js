@@ -1,5 +1,5 @@
 import '../../styles/Search.css';
-import { Container } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import SvgIcon from "../utils/SvgIcon";
 
 
@@ -10,7 +10,7 @@ function SearchByText({ onChange, onClick, placeholder }) {
     }
 
     return (
-        <Container className="container-search py-5">
+        <Row className="container container-search py-5">
             <div className="search-bar">
                 <input type="text" onChange={handleChange}  placeholder="&nbsp;"
                        className="input placeholder text-white bg-info" required
@@ -22,7 +22,7 @@ function SearchByText({ onChange, onClick, placeholder }) {
                     <SvgIcon size={16} name={"search"} />
                 </button>
             </div>
-        </Container>
+        </Row>
     );
 }
 
