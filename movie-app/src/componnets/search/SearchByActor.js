@@ -5,7 +5,7 @@ import UserMessage from "../moviesDisplay/UserMessage";
 
 function SearchByActor({ setUrl }) {
     const [filterValue, setFilterValue] = useState("");
-    const [{ data, isLoading, isError }, doFetch] = useApi("", []);
+    const [{ data}, doFetch] = useApi("", []);
     const [isValid, setIsValid] = useState(true);
     const [userInfo, setUserInfo] = useState("");
 
@@ -27,6 +27,8 @@ function SearchByActor({ setUrl }) {
     }, [data]);
 
     function handleClick() {
+        if(!filterValue.trim()) return;
+
         if (!filterValue.match(/^[A-Za-z\s]+$/)) {
             setUrl("");
             setIsValid(false);
@@ -40,9 +42,12 @@ function SearchByActor({ setUrl }) {
     }
 
     function isCompleteName() {
-        const actor = mostPopular()?.original_name;
-        if (actor !== filterValue)
+        const actor = mostPopular().original_name;
+        if (actor !== filterValue){
             setUserInfo(`All the movies of ${actor}:`);
+            console.log(actor)
+        }
+
 
         else setUserInfo("");
     }
