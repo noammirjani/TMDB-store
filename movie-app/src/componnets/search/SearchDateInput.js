@@ -1,6 +1,7 @@
 import {Col, Form, Row} from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import React from "react";
+import "react-datepicker/dist/react-datepicker.css";
 
 function SearchDateInput({ label, selectedDate, onDateChange }) {
 
@@ -14,7 +15,10 @@ function SearchDateInput({ label, selectedDate, onDateChange }) {
                     <DatePicker
                         selected={selectedDate}
                         onChange={(date) => onDateChange(date)}
-                        dateFormat="dd/MM/yyyy"
+                        dateFormat="yyyy"
+                        showYearPicker
+                        yearItemNumber={4}
+                        scrollableYearDropdown
                     />
                 </Col>
             </Row>

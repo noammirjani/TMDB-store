@@ -26,8 +26,8 @@ const useApi = (initialUrl, initialData) => {
             setIsLoading(true);
             try {
                 const result = await axios.get(url+defaultFilters, { headers });
-                setData(result.data.results); // set data state
-                console.log("did the fetch")
+                setData(result.data);
+                console.log("fetch ",  result.data)
             } catch (error) {
                 setIsError(true);
             } finally {
@@ -37,7 +37,7 @@ const useApi = (initialUrl, initialData) => {
 
         fetchData();
 
-    }, [url]); // trigger the effect when url changes
+    }, [url]);
 
     return [{ data, isLoading, isError }, setUrl];
 };

@@ -19,10 +19,17 @@ function SearchByDates({ setUrl }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (!checkDates()) return;
+        if (!checkDates()) {
+            setUrl("")
+            return;
+        }
 
         const formattedStartDate = startDate.toISOString();
-        const formattedEndDate = endDate.toISOString();
+        let formattedEndDate = endDate.toISOString();
+
+        if(formattedStartDate === formattedEndDate){
+            formattedEndDate = new Date(endDate.getFullYear(), 12, 31).toISOString();
+        }
 
         const url = `http://api.themoviedb.org/3/discover/movie?primary_release_date.gte=${formattedStartDate}&primary_release_date.lte=${formattedEndDate}`;
         setUrl(url);

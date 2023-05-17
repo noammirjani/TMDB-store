@@ -12,8 +12,7 @@ function SearchByActor({ setUrl }) {
     const mostPopular = () => {
         if (data.length === 0) return null;
 
-        console.log(data)
-        return data.reduce((prevActor, currentActor) => {
+        return data.results.reduce((prevActor, currentActor) => {
             return currentActor.popularity > prevActor.popularity ? currentActor : prevActor;
         });
     };
@@ -21,9 +20,9 @@ function SearchByActor({ setUrl }) {
     useEffect(() => {
         if (data.length !== 0) {
             setUrl(`http://api.themoviedb.org/3/discover/movie?with_cast=${mostPopular().id}`);
-        } else {
-            setUrl("");
         }
+        else setUrl("");
+
     }, [data]);
 
     function handleClick() {
@@ -33,30 +32,29 @@ function SearchByActor({ setUrl }) {
             setUrl("");
             setIsValid(false);
             setUserInfo("Actor name cannot contain special characters!");
-        } else if (filterValue.trim()) {
+        }
+
+        else if (filterValue.trim()) {
+            setUserInfo("");
             const name = filterValue.replace(" ", "+");
             doFetch(`https://api.themoviedb.org/3/search/person?query=${name}`);
             setIsValid(true);
-            isCompleteName();
+            isCompleteName()
         }
     }
 
     function isCompleteName() {
-        const actor = mostPopular().original_name;
-        if (actor !== filterValue){
-            setUserInfo(`All the movies of ${actor}:`);
-            console.log(actor)
-        }
-
-
-        else setUserInfo("");
+        const actor = mostPopular()?.original_name;
+        if (actor && actor !== filterValue)
+            return `All the movies of ${actor}:`;
+        else return ""
     }
 
     return (
         <>
             <SearchByText onChange={setFilterValue} onClick={handleClick} placeholder="actor" />
             {!isValid && <UserMessage userInfo={userInfo} isAlert={true} />}
-            {isValid && userInfo && <UserMessage userInfo={userInfo} isAlert={false} />}
+            {isValid  && <UserMessage userInfo={isCompleteName()} isAlert={false} />}
         </>
     );
 }

@@ -5,6 +5,7 @@ import SearchByMovieName from "../search/SearchByMovieName";
 import SearchByActor from "../search/SearchByActor";
 import {Container} from "react-bootstrap";
 import SearchByDates from "../search/SearchByDates";
+import SearchByGenres from "../search/SearchByGenres";
 
 function Search(){
     const [selectedFilterType, setSelectedFilterType] = useState("movie name");
@@ -20,6 +21,7 @@ function Search(){
                 {selectedFilterType==="movie name" && <SearchByMovieName setUrl={setFilterUrl}/>}
                 {selectedFilterType==="actor name" && <SearchByActor setUrl={setFilterUrl}/>}
                 {selectedFilterType==="date range" && <SearchByDates setUrl={setFilterUrl}/>}
+                {selectedFilterType==="category"   && <SearchByGenres setUrl={setFilterUrl}/>}
             </Container>
             <MoviesGrid url={filterUrl}/>
         </>
