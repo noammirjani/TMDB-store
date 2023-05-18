@@ -5,7 +5,7 @@ import useApi from '../utils/UseApi';
 import UserMessage from "./UserMessage";
 
 function MoviesGrid(props) {
-    const [{ data, isLoading, isError }, doFetch] = useApi("", {});
+    const [{ data, isLoading, isError }, doFetch] = useApi("", []);
     const [cards, setCards] = useState([]);
     const [userInfo, setUserInfo] = useState("");
 
