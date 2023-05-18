@@ -17,8 +17,13 @@ const useApi = (initialUrl, initialData) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            if(url === "") {
-                setData([])
+            if(url === "") {         //no search
+                setData({})
+                return;
+            }
+
+            if(url === " ") {
+                setData({total_results: 0})
                 return;
             }
 
@@ -27,7 +32,6 @@ const useApi = (initialUrl, initialData) => {
             try {
                 const result = await axios.get(url+defaultFilters, { headers });
                 setData(result.data);
-                console.log("fetch ",  result.data)
             } catch (error) {
                 setIsError(true);
             } finally {
@@ -39,7 +43,9 @@ const useApi = (initialUrl, initialData) => {
 
     }, [url]);
 
-    return [{ data, isLoading, isError }, setUrl];
+
+
+    return [{ data, isLoading, isError,  }, setUrl];
 };
 
 export default useApi;

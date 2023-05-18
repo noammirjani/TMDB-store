@@ -5,7 +5,7 @@ import useApi from '../utils/UseApi';
 import UserMessage from "./UserMessage";
 
 function MoviesGrid(props) {
-    const [{ data }, doFetch] = useApi("", []);
+    const [{ data, isLoading, isError }, doFetch] = useApi("", {});
     const [cards, setCards] = useState([]);
     const [userInfo, setUserInfo] = useState("");
 
@@ -14,10 +14,14 @@ function MoviesGrid(props) {
     }, [doFetch, props.url]);
 
     useEffect(() => {
-        if (data.length === 0) {
+
+        if(data.length === 0){
+            setCards([]);
+        }
+        else if (data.total_results === 0){
             setCards([]);
             setUserInfo(" Not found...🔍")
-        } else {
+        } else{
             setUserInfo("");
             buildMovieCard();
         }
@@ -26,7 +30,6 @@ function MoviesGrid(props) {
     function buildMovieCard() {
         if (data.length === 0) {
             setCards([]);
-            console.log("we dont care");
         } else {
             console.log("we care", data.results);
             const cards = data.results.map((movie) => (
