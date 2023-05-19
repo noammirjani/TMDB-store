@@ -20,11 +20,13 @@ function SearchByActor({ setUrl }) {
     useEffect(() => {
         if(data.length !== 0 ){
             if (data.total_results !== 0) {
-                setUserInfo("");
-                setUrl(`http://api.themoviedb.org/3/discover/movie?with_cast=${mostPopular().id}`);
+                const actor = mostPopular();
+                setUserInfo(`All the movies of ${actor.name}:`);
+                setUrl(`http://api.themoviedb.org/3/discover/movie?with_cast=${actor.id}`);
             }
             else {
                 setUrl("/no-data")
+                setUserInfo("")
             }
         }
     }, [data]);
@@ -42,16 +44,8 @@ function SearchByActor({ setUrl }) {
             setIsValid(true);
             const name = filterValue.replace(" ", "+");
             doFetch(`https://api.themoviedb.org/3/search/person?query=${name}`);
-            // isCompleteName()
         }
     }
-
-    // function isCompleteName() {
-    //     const actor = mostPopular()?.original_name;
-    //     if (actor && actor !== filterValue)
-    //         return `All the movies of ${actor}:`;
-    //     else return ""
-    // }
 
     return (
         <>

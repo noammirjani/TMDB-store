@@ -1,5 +1,6 @@
 import {useState} from "react";
 import SearchByText from "./SearchByText";
+import UserMessage from "../moviesDisplay/UserMessage";
 
 function SearchByMovieName({ setUrl }) {
     const [filterValue, setFilterValue] = useState("");
@@ -12,7 +13,13 @@ function SearchByMovieName({ setUrl }) {
         }
     }
 
-    return (<SearchByText onChange={setFilterValue} onClick={handleClick} placeholder="movie name"/>);
+    return (
+        <>
+            <SearchByText onChange={setFilterValue} onClick={handleClick} placeholder="movie name"/>
+            <UserMessage userInfo={""} isAlert={false} />
+
+        </>
+    );
 }
 
 export default SearchByMovieName;
