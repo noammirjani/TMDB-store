@@ -6,6 +6,7 @@ import Home from "./componnets/Pages/Home";
 import Search from "./componnets/Pages/Search";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import NotFound from "./componnets/Pages/NotFound";
 
 const App = () => {
     return (
@@ -18,9 +19,8 @@ const App = () => {
                         <Route  path="/search"  element={<Search />}/>
                         {/*<Route path="/otherpage" element={<OtherPage/>}/>*/}
                         {/*<Route path="/params/:id" element={<PageWithData/>}/>*/}
-                        {/*<Route path={"*"} element={<NotFound/>}/>*/}
-
                     </Route>
+                    <Route path={"*"} element={<NotFound/>}/>
                 </Routes>
             </BrowserRouter>
         </>
