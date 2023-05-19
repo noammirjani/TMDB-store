@@ -27,7 +27,7 @@ function Search(){
                 {selectedFilterType==="date range" && <SearchByDates     setUrl={setFilterUrl}/>}
                 {selectedFilterType==="category"   && <SearchByGenres    setUrl={setFilterUrl}/>}
             </Container>
-            {openHistoryTable && <SearchHistory url={filterUrl}/>}
+            {openHistoryTable && <SearchHistory url={filterUrl} setOpenHistoryTable={setOpenHistoryTable}/>}
             {!openHistoryTable && <MoviesGrid url={filterUrl} />}
 
         </>
