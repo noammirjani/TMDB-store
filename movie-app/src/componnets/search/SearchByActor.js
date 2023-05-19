@@ -24,7 +24,7 @@ function SearchByActor({ setUrl }) {
                 setUrl(`http://api.themoviedb.org/3/discover/movie?with_cast=${mostPopular().id}`);
             }
             else {
-                setUrl(" ")
+                setUrl("/no-data")
             }
         }
     }, [data]);

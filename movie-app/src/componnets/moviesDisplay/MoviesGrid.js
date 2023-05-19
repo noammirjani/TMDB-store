@@ -5,16 +5,20 @@ import useApi from '../utils/UseApi';
 import UserMessage from "./UserMessage";
 
 function MoviesGrid(props) {
-    const [{ data, isLoading, isError }, doFetch] = useApi("", []);
+    const [{ data, isLoading, isError, page}, doFetch, fetchPage] = useApi("", []);
     const [cards, setCards] = useState([]);
     const [userInfo, setUserInfo] = useState("");
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => { window.removeEventListener('scroll', handleScroll); };
+    }, [isLoading]);
 
     useEffect(() => {
         doFetch(props.url);
     }, [doFetch, props.url]);
 
     useEffect(() => {
-
         if(data.length === 0){
             setCards([]);
         }
@@ -27,15 +31,26 @@ function MoviesGrid(props) {
         }
     }, [data]);
 
+    function handleScroll() {
+        const isAtBottom =  window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
+
+        if (isAtBottom && !isLoading){
+            fetchPage(page+1)
+            console.log("new page")
+        }
+    }
+
     function buildMovieCard() {
         if (data.length === 0) {
             setCards([]);
         } else {
-            console.log("we care", data.results);
-            const cards = data.results.map((movie) => (
+            console.log("create grid", data);
+            const newCards = data.results.map((movie) => (
                 <MovieCard key={movie.id} movie={movie}/>
             ));
-            setCards(cards);
+
+            if(page > 1) setCards([...cards, newCards]);
+            else setCards(newCards);
         }
     }
 
@@ -48,6 +63,7 @@ function MoviesGrid(props) {
                 <Row>
                     {userInfo && <UserMessage userInfo={userInfo} isAlert={false} />}
                 </Row>
+                {isLoading && <button className="btn btn-outline-danger"> loading </button>}
             </Container>
         </>
     );
