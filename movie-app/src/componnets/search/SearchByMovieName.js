@@ -1,7 +1,7 @@
 import {useState} from "react";
 import SearchByText from "./SearchByText";
 
-function SearchByMovieName({ setUrl }) {
+function SearchByMovieName({ setUrl, setPrevSearchInput }) {
     const [filterValue, setFilterValue] = useState("");
 
     function handleClick() {
@@ -9,6 +9,7 @@ function SearchByMovieName({ setUrl }) {
             const name = filterValue.replace(" ", "+");
             const url = `https://api.themoviedb.org/3/search/movie?query=${name}`;
             setUrl(url);
+            setPrevSearchInput(filterValue);
         }
     }
 

@@ -1,53 +1,64 @@
-import {useEffect, useState} from "react";
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Table from 'react-bootstrap/Table';
-import { Container} from 'react-bootstrap';
-import { Modal, Button } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Button, Container, Modal, Table } from 'react-bootstrap';
+import UserMessage from "../moviesDisplay/UserMessage";
 
-function SearchHistory({url, setOpenHistoryTable}){
+function SearchHistory({ filterUrl, searchValue, setOpenHistoryTable }) {
 
-    const [prevSearch, setPrevSearch] = useState([]);
-    const titles = ["Your Search", "Search", "Remove"];
+    const [searchesData, setSearchesData] = useState([])
 
-    useEffect(() => {
-        setPrevSearch([...prevSearch, url]);
-    }, [url]);
+    const titles = ['Your Search', 'Search', 'Remove'];
+    const userInfo = "There are no previous searches";
 
     useEffect(() => {
-        if (url !== "") console.log("New Array: ", prevSearch);
-    }, [prevSearch]);
+        if (searchValue !== "" && filterUrl !== "") {
+            setSearchesData((prevSearchesData) => [...prevSearchesData, { url: filterUrl, value: searchValue }]);
+        }
+    }, [filterUrl]);
 
-    const titleRows = titles.map((title, index) => <th key={index} className="text-nowrap">{title}</th>);
 
-    // const removeRow = (index) => {
-    //     setSearchHistory(prevHistory => {
-    //         const newHistory = [...prevHistory];
-    //         newHistory.splice(index, 1);
-    //         return newHistory;
-    //     });
-    // };
 
-    // const rows = prevSearch.map((data, index) => {
-    //     console.log("At build serach", prevSearch);
-    //     // Map over the titles array to create an array of td elements for each cell in the row
-    //     const cells = titles.map((title, cellIndex) => {
-    //         if (cellIndex === titles.length - 1) {
-    //             return (
-    //                 <td key={title}>
-    //                     <Button variant="danger" onClick={() => removeRow(index)}>Remove</Button>
-    //                 </td>
-    //             );
-    //         }
-    //         return <td key={title}>{data[title]}</td>;
-    //     });
-    //     return <tr key={index} className="fw-bolder fs-6">{cells}</tr>;
-    // });
+    function handleRunSerach(index){
+        console.log(index);
+    }
+
+    function removeRow(index){
+        console.log(index);
+    }
+
+    const titleRows = titles.map((title, index) => (
+        <th key={index} className="text-nowrap">
+            {title}
+        </th>
+    ));
+
+    const rows = searchesData.map((data, index) => {
+        const cells = titles.map((title, cellIndex) => {
+            if (title === 'Search') {
+                return (
+                    <td key={title}>
+                        <Button variant="success" onClick={() => handleRunSerach(index)}>
+                            Search
+                        </Button>
+                    </td>
+                );
+            } else if (title === 'Remove') {
+                return (
+                    <td key={title}>
+                        <Button variant="danger" onClick={() => removeRow(index)}>
+                            Remove
+                        </Button>
+                    </td>
+                );
+            }
+            return <td key={title}>{data.value}</td>;
+        });
+        return <tr key={`${index}-${data.url}-${data.value}`} className="fw-bolder fs-6">{cells}</tr>;
+    });
 
     return (
-
-        <Modal contentClassName="bg-dark" size="xl" show={true}  centered>
+        <Modal contentClassName="bg-dark" size="xl" show={true} centered>
             <Modal.Body>
+                {searchesData.length > 0 &&
                 <Container>
                     <Table striped bordered hover variant="dark" className={`text-center`}>
                         <thead>
@@ -55,14 +66,19 @@ function SearchHistory({url, setOpenHistoryTable}){
                         </thead>
                         <tbody>{rows}</tbody>
                     </Table>
-                </Container>
+                </Container>}
+                {searchesData.length === 0 && <UserMessage userInfo={userInfo} isAlert={false} />}
             </Modal.Body>
             <Modal.Footer>
-                <div>
-                    <Button variant="danger" onClick={() => setPrevSearch([])}> Remove All Searches</Button>
+                <div>{searchesData.length > 0 &&
+                    <Button variant="danger" onClick={() => console.log("want to delete all")}>
+                        Remove All Searches
+                    </Button>}
                 </div>
                 <div>
-                    <Button variant="danger" onClick={() => setOpenHistoryTable(false)}> Close</Button>
+                    <Button variant="secondary" onClick={() => setOpenHistoryTable(false)}>
+                        Close
+                    </Button>
                 </div>
             </Modal.Footer>
         </Modal>

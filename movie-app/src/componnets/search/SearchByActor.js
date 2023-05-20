@@ -3,7 +3,7 @@ import useApi from "../utils/UseApi";
 import SearchByText from "./SearchByText";
 import UserMessage from "../moviesDisplay/UserMessage";
 
-function SearchByActor({ setUrl }) {
+function SearchByActor({ setUrl, setPrevSearchInput }) {
     const [filterValue, setFilterValue] = useState("");
     const [{ data}, doFetch] = useApi("", []);
     const [isValid, setIsValid] = useState(true);
@@ -22,6 +22,7 @@ function SearchByActor({ setUrl }) {
             if (data.total_results !== 0) {
                 setUserInfo("");
                 setUrl(`http://api.themoviedb.org/3/discover/movie?with_cast=${mostPopular().id}`);
+                setPrevSearchInput(filterValue)
             }
             else {
                 setUrl(" ")
