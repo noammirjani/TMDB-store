@@ -2,28 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Button, Container, Modal, Table } from 'react-bootstrap';
 import UserMessage from "../moviesDisplay/UserMessage";
 
-function SearchHistory({ filterUrl, searchValue, setOpenHistoryTable }) {
-
-    const [searchesData, setSearchesData] = useState([])
+function SearchHistory({ searchesData, handleReRunSearch, handleRemoveRow, handleDeleteAll, setOpenHistoryTable }) {
 
     const titles = ['Your Search', 'Search', 'Remove'];
     const userInfo = "There are no previous searches";
-
-    useEffect(() => {
-        if (searchValue !== "" && filterUrl !== "") {
-            setSearchesData((prevSearchesData) => [...prevSearchesData, { url: filterUrl, value: searchValue }]);
-        }
-    }, [filterUrl]);
-
-
-
-    function handleRunSerach(index){
-        console.log(index);
-    }
-
-    function removeRow(index){
-        console.log(index);
-    }
 
     const titleRows = titles.map((title, index) => (
         <th key={index} className="text-nowrap">
@@ -36,7 +18,7 @@ function SearchHistory({ filterUrl, searchValue, setOpenHistoryTable }) {
             if (title === 'Search') {
                 return (
                     <td key={title}>
-                        <Button variant="success" onClick={() => handleRunSerach(index)}>
+                        <Button variant="success" onClick={() => handleReRunSearch(index)}>
                             Search
                         </Button>
                     </td>
@@ -44,15 +26,15 @@ function SearchHistory({ filterUrl, searchValue, setOpenHistoryTable }) {
             } else if (title === 'Remove') {
                 return (
                     <td key={title}>
-                        <Button variant="danger" onClick={() => removeRow(index)}>
+                        <Button variant="danger" onClick={() => handleRemoveRow(index)}>
                             Remove
                         </Button>
                     </td>
                 );
             }
-            return <td key={title}>{data.value}</td>;
+            return <td key={cellIndex}>{data.value}</td>;
         });
-        return <tr key={`${index}-${data.url}-${data.value}`} className="fw-bolder fs-6">{cells}</tr>;
+        return <tr key={`${index}`} className="fw-bolder fs-6">{cells}</tr>;
     });
 
     return (
@@ -71,7 +53,7 @@ function SearchHistory({ filterUrl, searchValue, setOpenHistoryTable }) {
             </Modal.Body>
             <Modal.Footer>
                 <div>{searchesData.length > 0 &&
-                    <Button variant="danger" onClick={() => console.log("want to delete all")}>
+                    <Button variant="danger" onClick={handleDeleteAll}>
                         Remove All Searches
                     </Button>}
                 </div>

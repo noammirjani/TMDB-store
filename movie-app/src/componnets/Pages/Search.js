@@ -13,16 +13,60 @@ function Search(){
 
     const [selectedFilterType, setSelectedFilterType] = useState("movie name");
     const [openHistoryTable, setOpenHistoryTable] = useState(false);
-
     const [filterUrl, setFilterUrl] = useState("");
     const [searchValue, setSearchValue] = useState("");
 
-    // useEffect(() => {
-    //     if (searchValue !== "" ) {
-    //         setPrevSearchURL((prevSearch) => [...prevSearchURL, filterUrl]);
-    //         setPrevSearchInput((prevSearch) => [...prevSearchInput, searchValue]);
-    //     }
-    // }, [searchValue]);
+    const [searchesData, dispatch] = useReducer(searchReducer, []);
+
+    useEffect(() => {
+        if (searchValue !== "" && filterUrl !== "" && !searchesData.some(search => search.value === searchValue)) {
+            handleAddSearch();
+        }
+    }, [filterUrl, searchValue]);
+
+    function handleReRunSearch(index) {
+        console.log("want to reseach ",searchesData[index].value);
+        setOpenHistoryTable(false);
+        setFilterUrl(searchesData[index].url);
+    }
+
+    function handleAddSearch() {
+        dispatch({
+            type: 'added',
+        });
+    }
+
+    function handleRemoveRow(index) {
+        dispatch({
+            type: 'remove',
+            removeIndex : index,
+        });
+    }
+
+    function handleDeleteAll() {
+        dispatch({
+            type: 'delete',
+        });
+    }
+
+
+    function searchReducer(searchesData, action) {
+        switch (action.type) {
+            case 'added': {
+                return [...searchesData, { url: filterUrl, value: searchValue }];
+            }
+            case 'remove': {
+                return searchesData.filter((search) => searchesData.indexOf(search) !== action.removeIndex);
+            }
+            case 'delete': {
+                return [];
+            }
+            default: {
+                throw Error('Unknown action: ' + action.type);
+            }
+        }
+    }
+
 
 
     return(
@@ -38,8 +82,10 @@ function Search(){
                 {selectedFilterType==="date range" && <SearchByDates     setUrl={setFilterUrl}/>}
                 {selectedFilterType==="category"   && <SearchByGenres    setUrl={setFilterUrl}/>}
             </Container>
-            {openHistoryTable && <SearchHistory filterUrl={filterUrl}
-                                                searchValue={searchValue}
+            {openHistoryTable && <SearchHistory searchesData={searchesData}
+                                                handleReRunSearch={handleReRunSearch}
+                                                handleRemoveRow={handleRemoveRow}
+                                                handleDeleteAll={handleDeleteAll}
                                                 setOpenHistoryTable={setOpenHistoryTable} />}
             {!openHistoryTable && <MoviesGrid url={filterUrl} />}
 
