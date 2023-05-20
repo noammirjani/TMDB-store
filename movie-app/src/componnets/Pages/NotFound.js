@@ -1,6 +1,8 @@
 import React from 'react';
 import "../../styles/NotFound.css"
 import {Container} from "react-bootstrap";
+import {Link} from "react-router-dom";
+import SvgIcon from "../utils/SvgIcon";
 
 const NotFound = () => {
     return (
@@ -14,9 +16,9 @@ const NotFound = () => {
                 <span><span className="screen-reader-text">0</span></span>
                 <span>4</span>
             </section>
-            <button className="button">
-                Back To Website
-            </button>
+                <Link to={`/`} className="button">
+                    <button >Back To Website</button>
+                </Link>
         </Container>
     );
 };
