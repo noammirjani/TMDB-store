@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import MovieCard from './MovieCard';
 import useApi from '../utils/UseApi';
 import UserMessage from "./UserMessage";
+import Loading from "../utils/Loading";
 
 function MoviesGrid(props) {
     const [{ data, isLoading, isError, page}, doFetch, fetchPage] = useApi("", []);
@@ -63,7 +64,7 @@ function MoviesGrid(props) {
                 <Row>
                     {userInfo && <UserMessage userInfo={userInfo} isAlert={false} />}
                 </Row>
-                {isLoading && <button className="btn btn-outline-danger"> loading </button>}
+                {isLoading && <Loading/>}
             </Container>
         </>
     );

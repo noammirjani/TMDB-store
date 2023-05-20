@@ -165,8 +165,7 @@ a.more-link {
     margin-top: 50px;
     letter-spacing: 1px;
 }
-
-button {
+.btn-404 {
     font-size: 18px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -184,7 +183,7 @@ button {
     z-index: 1;
 }
 
-button:before {
+.btn-404:before {
     transition: 0.5s all ease;
     position: absolute;
     top: 0;
@@ -197,17 +196,19 @@ button:before {
     z-index: -1;
 }
 
-button:hover, button:focus {
+.btn-404:hover,
+.btn-404:focus {
     color: white;
 }
 
-button:hover:before, button:focus:before {
+.btn-404:hover:before,
+.btn-404:focus:before {
     transition: 0.5s all ease;
     left: 0;
     right: 0;
     opacity: 1;
 }
 
-button:active {
+.btn-404:active {
     transform: scale(0.9);
 }

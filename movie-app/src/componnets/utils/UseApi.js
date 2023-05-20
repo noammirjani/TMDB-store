@@ -26,21 +26,21 @@ const useApi = (initialUrl, initialData) => {
             return;
         }
 
-
         setIsError(false);
         setIsLoading(true);
         try {
             const result = await axios.get(url+defaultFilters, { headers });
             setData(result.data);
 
-        } catch (error) {
+            if(page >= result.data.total_pages)
+                setIsError(true)
 
-            if(error.response.status === 422) {
+        } catch (error) {
+            if(error.response.status === 422) { //passed the page limit of api
                 setPage(page-1)
             }
-            else {
-                setData([])
-            }
+            else setData([])
+
             setIsError(true);
         } finally {
             setIsLoading(false);
