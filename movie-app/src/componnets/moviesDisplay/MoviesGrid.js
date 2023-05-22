@@ -65,7 +65,7 @@ function MoviesGrid(props) {
                     {!isError && userInfo && <UserMessage userInfo={userInfo} isAlert={false} />}
                 </Row>
                 {!isError && isLoading && <Loading/>}
-                {isError &&  <UserMessage userInfo={userInfo} isAlert={true}/> }
+                {isError &&  <UserMessage userInfo={userInfo} isAlert={false}/> }
             </Container>
         </>
     );

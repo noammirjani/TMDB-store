@@ -3,7 +3,6 @@ import { Container } from 'react-bootstrap';
 import TypingIntro from "../utils/TypingIntro";
 import ColoredWelcomeIntro from "../utils/ColoredWelcomeIntro";
 
-
 const HomePage = () => {
 
     return (
@@ -12,7 +11,6 @@ const HomePage = () => {
                 <ColoredWelcomeIntro />
                 <TypingIntro />
             </Container>
-
             <MoviesGrid url={"https://api.themoviedb.org/3/movie/popular?"} />
         </>
     );

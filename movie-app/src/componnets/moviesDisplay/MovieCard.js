@@ -3,6 +3,7 @@ import {Col} from 'react-bootstrap';
 import '../../styles/MovieGrid.css'
 import CardExtend from "./CardExtend";
 import SvgIcon from "../utils/SvgIcon";
+import { useCartDispatch } from '../Context/CartProvider';
 
 function MovieCard ({movie}) {
 
@@ -10,6 +11,8 @@ function MovieCard ({movie}) {
     const price = 3.99;
     const imageUrlPrefix = "https://image.tmdb.org/t/p/w500";
     let movieImage = movie.poster_path !== null ? imageUrlPrefix + movie.poster_path : '/assets/unknowen.png';
+    const dispatch = useCartDispatch();
+
 
     return(
         <>
@@ -21,7 +24,14 @@ function MovieCard ({movie}) {
                                    letter-spacing-2 text-wrap`}>{movie.title}</p>
                         <div className="d-flex justify-content-between align-items-center" >
                             <div className="btn-group">
-                                <button type="button" className="btn btn-success">
+                                <button type="button" className="btn btn-success"
+                                onClick={()=>{
+                                    dispatch({
+                                        type: 'added',
+                                        movie : movie
+                                    });
+                                }}
+                                >
                                     <SvgIcon name={"addToCart"} size={16}/>
                                 </button>
                                 <button type="button" className="btn btn-primary" onClick={() => setShowModal(true)}>

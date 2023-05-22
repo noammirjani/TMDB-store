@@ -1,4 +1,5 @@
 import React from 'react';
+import  { useState, useContext, useReducer } from 'react';
 import {BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "react-scroll-to-top";
 import MenuBar from "./componnets/Menu/MenuBar";
@@ -7,10 +8,13 @@ import Search from "./componnets/Pages/Search";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import NotFound from "./componnets/Pages/NotFound";
+import { CartProvider } from "./componnets/Context/CartProvider";
 
 const App = () => {
+
     return (
         <>
+        <CartProvider >
             <BrowserRouter>
                 <ScrollToTop smooth />
                 <Routes>
@@ -23,6 +27,7 @@ const App = () => {
                     <Route path={"*"} element={<NotFound/>}/>
                 </Routes>
             </BrowserRouter>
+        </CartProvider>
         </>
     );
 };
