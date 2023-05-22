@@ -15,60 +15,40 @@ function Cart() {
     };
 
     return (
-
         <>
-            {cart.length === 0 && (
-                <div className="dropdown" onClick={toggleDropdown}>
-                    <div
-                        id="cartDropdownMenu"
-                        className={`dropdown-menu custom-dropdown-menu justify-content-center mx-auto text-center ${isDropdownOpen ? 'show' : ''}`}
-                    >
-                        <p className="text-cart">Oh, your cart is empty..</p>
-                        <SvgIcon size={70} name={"film"} />
-                        <p className="text-cart mt-3">Continue shopping and come back!</p>
-                    </div>
-                </div>
-            )}
+            <div className="dropdown" onClick={toggleDropdown}>
+                <div
+                    id="cartDropdownMenu"
+                    className={`dropdown-menu custom-dropdown-menu justify-content-center mx-auto text-center`}
+                >
+                    {cart.length === 0 && (
+                        <>
+                            <p className="text-cart">Oh, your cart is empty..</p>
+                            <SvgIcon size={70} name={"film"} />
+                            <p className="text-cart mt-3">Continue shopping and come back!</p>
+                        </>
+                    )}
 
-            {cart.length > 0 && (
-                <div className="dropdown" onClick={toggleDropdown}>
-                    <div
-                        id="cartDropdownMenu"
-                        className={`dropdown-menu custom-dropdown-menu justify-content-center mx-auto text-center ${isDropdownOpen ? 'show' : ''}`}>
-                    </div>
-                    <Container>
-                        {cart.map(product => (
-                            <Row key={product.id}>
-                                <CartProduct movie={product} />
-                            </Row>
-                        ))}
-                        <Button variant="danger" onClick={()=>{
-                            dispatch({
-                                type: 'delete',
-                            });
-                        }}>
-                            Empty Cart
-                        </Button>}
-                    </Container>
+                    {cart.length > 0 && (
+                        <Container>
+                            {cart.map((product, index) => (
+                                <Row key={index}>
+                                    {console.log("Current ", product, index)}
+                                    <CartProduct movie={product} index={index}/>
+                                </Row>
+                            ))}
+                            <Button variant="danger" onClick={() => {
+                                dispatch({
+                                    type: 'delete',
+                                });
+                            }}>
+                                Empty Cart
+                            </Button>
+                        </Container>
+                    )}
                 </div>
-            )}
+            </div>
         </>
-
-
-        // <>
-        //     {products.length === 0 && (
-        //         <div className="dropdown" onClick={toggleDropdown}>
-        //             <div
-        //                 id="cartDropdownMenu"
-        //                 className={`dropdown-menu custom-dropdown-menu justify-content-center mx-auto text-center ${isDropdownOpen ? 'show' : ''}`}
-        //             >
-        //                 <p className="text-cart">Oh, your cart is empty..</p>
-        //                 <SvgIcon size={70} name={"film"} />
-        //                 <p className="text-cart mt-3">Continue shopping and come back!</p>
-        //             </div>
-        //         </div>
-        //     )}
-        // </>
     );
 }
 

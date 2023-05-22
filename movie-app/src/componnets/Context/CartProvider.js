@@ -28,12 +28,18 @@ export function useCartDispatch() {
 function cartReducer(cart, action) {
     switch (action.type) {
         case 'added': {
-            return [...cart, { movie: action.movie}];
+            const movieToAdd = action.movie;
+            const isMovieAlreadyInCart = cart.some((item) => item.movie.id === movieToAdd.id);
+
+            if (!isMovieAlreadyInCart) {
+                return [...cart, { movie: movieToAdd }];
+            }
+            return cart;
         }
         case 'remove': {
             return cart.filter((movie) => cart.indexOf(movie) !== action.removeIndex);
         }
-        case 'deleted': {
+        case 'delete': {
             return [];
         }
         default: {

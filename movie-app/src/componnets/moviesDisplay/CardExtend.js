@@ -1,9 +1,11 @@
 import { Modal, Button } from 'react-bootstrap';
 import SvgIcon from "../utils/SvgIcon";
 import MovieDetails from "./MovieDetails";
-
+import { useCartDispatch } from '../Context/CartProvider';
 
 function CardExtend({ movieImage, movie, showModal, onClose }) {
+    const dispatch = useCartDispatch();
+
     return (
         <Modal contentClassName="bg-dark" size="xl" show={showModal} onHide={() => onClose(false)} centered>
             <Modal.Body>
@@ -19,7 +21,13 @@ function CardExtend({ movieImage, movie, showModal, onClose }) {
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="success">
+                <Button variant="success"
+                        onClick={()=>{
+                            dispatch({
+                                type: 'added',
+                                movie : movie
+                            });
+                        }}>
                     <SvgIcon name="addToCart" size={25}/>
                 </Button>
                 <Button variant="danger" onClick={() => onClose(false)}> Close</Button>

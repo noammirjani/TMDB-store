@@ -10,7 +10,7 @@ function MovieCard ({movie}) {
     const [showModal, setShowModal] = useState(false);
     const price = 3.99;
     const imageUrlPrefix = "https://image.tmdb.org/t/p/w500";
-    let movieImage = movie.poster_path !== null ? imageUrlPrefix + movie.poster_path : '/assets/unknowen.png';
+    let   movieImage = movie.poster_path !== null ? imageUrlPrefix + movie.poster_path : '/assets/unknowen.png';
     const dispatch = useCartDispatch();
 
 
