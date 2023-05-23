@@ -1,0 +1,32 @@
+.custom-card-body {
+    height: 135px;
+    background-color: rgba(35, 44, 65, 0.4);
+}
+
+.img {
+    width: 260px;
+    height: 300px;
+}
+
+.card-hover {
+    transition: transform 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: scale(1.09);
+}
+
+.card-row {
+    height: 65px;
+}
+
+@media (max-width: 576px) {
+    .img {
+        height: 600px; /* Allow height to adjust automatically based on the image aspect ratio */
+        width: 200px;
+    }
+
+    .card:hover {
+        transform: none;
+    }
+}

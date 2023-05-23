@@ -1,0 +1,114 @@
+.container-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-bar {
+    height: 88px;
+    /*width: 900px;*/
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 0 0 20px;
+    position: relative;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.input {
+    border: none;
+    height: 45px;
+    width: 900px;
+    color: transparent;
+    font-size: 40px;
+    outline: none;
+    text-align: center;
+    background-clip: text;
+    -webkit-background-clip: text;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+    margin: 0 auto; /* Center the input horizontally */
+    caret-color: #0f8fda; /* Add the caret color */
+}
+
+
+.input:not(:placeholder-shown) + .label {
+    font-size: 20px;
+    top: 8px;
+    left: 120px;
+    color: #92ec56;
+}
+
+.input:not(:placeholder-shown):not(:empty)+ .label {
+    font-size: 20px;
+    top: 8px;
+    left: 120px;
+    color: #92ec56;
+}
+
+.input:focus ~ .label {
+    font-size: 20px;
+    top: 8px;
+    left: 120px;
+    color: #0f8fda;
+    transition: all 0.5s ease;
+}
+
+.label {
+    font-size: 22px;
+    color: #d00000;
+    position: absolute;
+    top: 25px;
+    left: 47%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    transition: all 0.5s ease;
+}
+
+.search-btn {
+    background: linear-gradient(to right, #f30b0b, #d30b0b);
+    border-radius: 40px;
+    height: 80px;
+    min-width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    right: 5px;
+    position: absolute;
+    transition: all 1s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.highlight {
+    width: 0px;
+    height: 2px;
+    background: #1885c5;
+    position: absolute;
+    bottom: 8px;
+    transition: all 1s ease;
+}
+
+.input:focus ~ .highlight {
+    width: 80%; /* Default width for smaller screens */
+    right: 10%; /* Default position for smaller screens */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 1s ease;
+}
+
+/* Media query for medium screens */
+@media (min-width: 576px) and (max-width: 991px) {
+    .input:focus ~ .highlight {
+        width: 500px; /* Width for medium screens */
+        right: 150px; /* Position for medium screens */
+    }
+}
+
+/* Media query for larger screens */
+@media (min-width: 992px) {
+    .input:focus ~ .highlight {
+        width: 800px; /* Width for larger screens */
+        right: 300px; /* Position for larger screens */
+    }
+}

@@ -1,0 +1,23 @@
+.hover-opacity:hover {
+    opacity: 0.50;
+}
+/* Custom styles for collapsed navbar */
+@media (max-width: 767px) {
+    .navbar-nav {
+        font-size: 14px; /* Adjust the font size to make the pills smaller */
+        margin-top: 5px; /* Adjust the top margin to vertically align the pills */
+    }
+}
+
+.logo {
+    max-width: 800px;
+    max-height: 180px;
+}
+
+.custom-dropdown-menu {
+    width: 300px;
+}
+
+.text-cart{
+    font-size: 2vw;
+}
