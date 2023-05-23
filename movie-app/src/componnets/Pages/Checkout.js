@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Form } from "react-bootstrap";
 import { useCart } from "../Context/CartProvider";
 import CartContent from "../Cart/CartContent";
 import CheckoutMessage from "../Cart/CheckoutMessage";
@@ -16,17 +16,25 @@ function Checkout() {
         </Container>
     );
 
+    const handleSubmit = (event) => {
+        event.defaultPrevented()
+    }
+
     return (
         <Container>
             <Row className="mt-5">
                 <Col xs={12} md={isCartEmpty ? 12 : 6} className="mb-3">
-                    <CheckoutMessage isCartEmpty={isCartEmpty} />
-                    {!isCartEmpty && renderCheckoutData()}
-                    {!isCartEmpty && <UserRegister />}
+                    <Form className="form-register" onSubmit={handleSubmit}>
+                        <CheckoutMessage isCartEmpty={isCartEmpty} />
+                        {!isCartEmpty && renderCheckoutData()}
+                        {!isCartEmpty && <UserRegister />}
+                    </Form>
                 </Col>
                 {!isCartEmpty && (
-                    <Col xs={12} md={6}>
-                        <CartContent />
+                    <Col xs={12} md={6} className="mx-auto">
+                        <Container className="mx-5">
+                            <CartContent />
+                        </Container>
                     </Col>
                 )}
             </Row>

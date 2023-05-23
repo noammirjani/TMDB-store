@@ -13,7 +13,7 @@ function CheckoutMessage({isCartEmpty}) {
     const renderCardNotEmptyBtns = () => (
         <div className="d-flex justify-content-center">
             {linkBtn('','primary','Continue Shopping') }
-            {linkBtn('pay','danger disabled',' Pay & Buy') }
+            <button className={`btn btn-outline-danger submit btn-lg px-4 gap-3`}> Pay & Buy </button>
         </div>
     );
 

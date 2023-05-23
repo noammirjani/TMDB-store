@@ -49,10 +49,9 @@ function Cart() {
     return (
         <>
             <div className="dropdown" onClick={toggleDropdown}>
-                <div
-                    id="cartDropdownMenu"
-                    className={`dropdown-menu custom-dropdown-menu justify-content-center mx-auto text-center ${isDropdownOpen ? "show" : ""}`}
-                >
+                <div id="cartDropdownMenu"
+                    className={`dropdown-menu custom-dropdown-menu justify-content-center
+                     mx-auto text-center ${isDropdownOpen ? "show" : ""}`}>
                     <div style={cartContainerStyle}>
                         {cart.length === 0 && noItems()}
                         {cart.length > 0 && (

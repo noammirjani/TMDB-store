@@ -32,7 +32,7 @@ const TypingIntro = () => {
         <Container>
             <Row className="row">
                 <div className="col-lg-12 text-center">
-                    <p className="fs-4 mb-4 text-white">{typedText}</p>
+                    <p className="fs-3 mb-4 text-white">{typedText}</p>
                 </div>
             </Row>
         </Container>
