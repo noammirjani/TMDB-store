@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Cart from "../Pages/cart";
+import Cart from "../Pages/Cart";
 import SvgIcon from "../utils/SvgIcon";
 
 function MenuButton({ optionName }) {
