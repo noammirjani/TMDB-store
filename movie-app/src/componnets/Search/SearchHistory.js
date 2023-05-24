@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Container, Modal, Table } from 'react-bootstrap';
-import UserMessage from "../moviesDisplay/UserMessage";
+import UserMessage from "../MoviesDisplay/UserMessage";
 
 function SearchHistory({ searchesData, handleReRunSearch, handleRemoveRow, handleDeleteAll, setOpenHistoryTable }) {
 

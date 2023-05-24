@@ -1,9 +1,9 @@
 import { Container, Row } from "react-bootstrap";
 import { useState, useEffect } from 'react';
 import MovieCard from './MovieCard';
-import useApi from '../utils/UseApi';
+import useApi from '../Utils/UseApi';
 import UserMessage from "./UserMessage";
-import Loading from "../utils/Loading";
+import Loading from "../Utils/Loading";
 
 function MoviesGrid(props) {
     const [{ data, isLoading, isError, page}, doFetch, fetchPage] = useApi("", []);

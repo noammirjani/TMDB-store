@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Row, Col, Card, Container } from "react-bootstrap";
 import { useCartDispatch } from '../Context/CartProvider';
-import SvgIcon from "../utils/SvgIcon";
+import SvgIcon from "../Utils/SvgIcon";
 
 function CartProduct({ movie, index }) {
     const imageUrlPrefix = "https://image.tmdb.org/t/p/w500";

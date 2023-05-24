@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import useApi from "../utils/UseApi";
+import useApi from "../Utils/UseApi";
 import SearchByText from "./SearchByText";
-import UserMessage from "../moviesDisplay/UserMessage";
+import UserMessage from "../MoviesDisplay/UserMessage";
 
 function SearchByActor({ setUrl, setPrevSearchInput  }) {
     const [filterValue, setFilterValue] = useState("");

@@ -1,8 +1,8 @@
 import { Button, Container } from "react-bootstrap";
 import GenresFilterButton from "./GenresFilterButton";
-import useApi from "../utils/UseApi";
+import useApi from "../Utils/UseApi";
 import React, { useEffect, useState } from "react";
-import SvgIcon from "../utils/SvgIcon";
+import SvgIcon from "../Utils/SvgIcon";
 
 function SearchByGenres({ setUrl }) {
     const [{ data, isError }, doFetch] = useApi("", []);

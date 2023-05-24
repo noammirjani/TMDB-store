@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useCart, useCartDispatch } from '../Context/CartProvider';
 import { Container, Button } from "react-bootstrap";
-import SvgIcon from "../utils/SvgIcon";
+import SvgIcon from "../Utils/SvgIcon";
 import { Link } from "react-router-dom";
 import CartContent from "../Cart/CartContent";
 

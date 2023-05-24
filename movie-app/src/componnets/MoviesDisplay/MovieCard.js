@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Col} from 'react-bootstrap';
 import '../../styles/MovieGrid.css'
 import CardExtend from "./CardExtend";
-import SvgIcon from "../utils/SvgIcon";
+import SvgIcon from "../Utils/SvgIcon";
 import { useCartDispatch } from '../Context/CartProvider';
 
 function MovieCard ({movie}) {

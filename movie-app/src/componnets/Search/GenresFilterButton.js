@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
-import UserMessage from "../moviesDisplay/UserMessage";
+import UserMessage from "../MoviesDisplay/UserMessage";
 
 function GenresFilterButton({ isError, filterGenre, onChange, data }) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);

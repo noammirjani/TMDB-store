@@ -2,6 +2,7 @@ import {Link, Outlet} from 'react-router-dom';
 import '../../styles/MenuBar.css'
 import React from "react";
 import MenuButton from "./MenuButton";
+import MenuCartButton from "./MenuCartButton";
 
 function MenuBar() {
 
@@ -20,7 +21,7 @@ function MenuBar() {
                         <ul className="navbar-nav justify-content-center text-center mx-auto">
                             <MenuButton optionName={"home"} />
                             <MenuButton optionName={"search"} />
-                            <MenuButton optionName={"cart"} />
+                            <MenuCartButton optionName={"cart"} />
                         </ul>
                     </div>
                 </div>

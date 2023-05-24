@@ -1,7 +1,7 @@
-import MoviesGrid from "../moviesDisplay/MoviesGrid";
+import MoviesGrid from "../MoviesDisplay/MoviesGrid";
 import { Container } from 'react-bootstrap';
-import TypingIntro from "../utils/TypingIntro";
-import ColoredWelcomeIntro from "../utils/ColoredWelcomeIntro";
+import TypingIntro from "../Utils/TypingIntro";
+import ColoredWelcomeIntro from "../Utils/ColoredWelcomeIntro";
 
 const HomePage = () => {
 

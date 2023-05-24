@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
-import UserMessage from "../moviesDisplay/UserMessage";
-import SvgIcon from "../utils/SvgIcon";
+import UserMessage from "../MoviesDisplay/UserMessage";
+import SvgIcon from "../Utils/SvgIcon";
 import SearchDateInput from "./SearchDateInput";
 
 function SearchByDates({ setUrl }) {

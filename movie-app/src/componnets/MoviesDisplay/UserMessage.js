@@ -1,5 +1,5 @@
 import {Container} from "react-bootstrap";
-import SvgIcon from "../utils/SvgIcon";
+import SvgIcon from "../Utils/SvgIcon";
 
 function UserMessage ({userInfo, isAlert}){
 

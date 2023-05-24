@@ -1,6 +1,6 @@
 import {useState} from "react";
 import SearchByText from "./SearchByText";
-import UserMessage from "../moviesDisplay/UserMessage";
+import UserMessage from "../MoviesDisplay/UserMessage";
 
 function SearchByMovieName({ setUrl, setPrevSearchInput }) {
     const [filterValue, setFilterValue] = useState("");

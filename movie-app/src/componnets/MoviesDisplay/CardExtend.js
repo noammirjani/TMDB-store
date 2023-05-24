@@ -1,5 +1,5 @@
 import { Modal, Button } from 'react-bootstrap';
-import SvgIcon from "../utils/SvgIcon";
+import SvgIcon from "../Utils/SvgIcon";
 import MovieDetails from "./MovieDetails";
 import { useCartDispatch } from '../Context/CartProvider';
 

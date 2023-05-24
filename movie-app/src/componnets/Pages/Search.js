@@ -1,12 +1,12 @@
-import SearchBar from "../search/SearchBar";
+import SearchBar from "../Search/SearchBar";
 import React, {useState, useEffect, useReducer } from "react";
-import MoviesGrid from "../moviesDisplay/MoviesGrid";
-import SearchByMovieName from "../search/SearchByMovieName";
-import SearchByActor from "../search/SearchByActor";
+import MoviesGrid from "../MoviesDisplay/MoviesGrid";
+import SearchByMovieName from "../Search/SearchByMovieName";
+import SearchByActor from "../Search/SearchByActor";
 import {Container} from "react-bootstrap";
-import SearchByDates from "../search/SearchByDates";
-import SearchByGenres from "../search/SearchByGenres";
-import SearchHistory from "../search/SearchHistory";
+import SearchByDates from "../Search/SearchByDates";
+import SearchByGenres from "../Search/SearchByGenres";
+import SearchHistory from "../Search/SearchHistory";
 
 
 function Search(){

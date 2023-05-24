@@ -2,8 +2,8 @@ import React from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import { useCart } from "../Context/CartProvider";
 import CartContent from "../Cart/CartContent";
-import CheckoutMessage from "../Cart/CheckoutMessage";
-import UserRegister from "../Cart/UserRegister";
+import CheckoutMessage from "../Checkout/CheckoutMessage";
+import UserRegister from "../Checkout/UserRegister";
 
 function Checkout() {
     const cart = useCart();

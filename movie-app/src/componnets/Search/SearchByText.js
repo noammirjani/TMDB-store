@@ -1,6 +1,6 @@
 import '../../styles/Search.css';
 import { Row } from "react-bootstrap";
-import SvgIcon from "../utils/SvgIcon";
+import SvgIcon from "../Utils/SvgIcon";
 
 
 function SearchByText({ onChange, onClick, placeholder }) {
