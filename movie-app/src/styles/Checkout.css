@@ -1,0 +1,12 @@
+.cart-container {
+    height: 800px;
+    overflow-y: auto;
+}
+
+@media (max-width: 767px) {
+    .cart-container {
+        height: auto;
+        max-height: none;
+        overflow-y: hidden;
+    }
+}
