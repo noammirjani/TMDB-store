@@ -34,7 +34,7 @@ function Cart() {
 
     const checkoutButton = () => {
         return (
-            <Link to={`/checkout`} className="btn btn-danger text-white">
+            <Link to={`/checkout`} className="btn btn-danger text-white mx-1">
                 checkout
                 <SvgIcon name="cart" size={16} />
             </Link>

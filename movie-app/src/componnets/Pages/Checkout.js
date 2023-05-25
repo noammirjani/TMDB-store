@@ -1,42 +1,42 @@
 import React from "react";
-import { Container, Row, Col, Form } from "react-bootstrap";
+import { Col, Row, Container } from "react-bootstrap";
+import CheckoutMessage from "../Checkout/CheckoutMessage";
 import { useCart } from "../Context/CartProvider";
 import CartContent from "../Cart/CartContent";
-import CheckoutMessage from "../Checkout/CheckoutMessage";
-import UserRegister from "../Checkout/UserRegister";
+import CheckoutCartInfo from "../Checkout/CheckoutCartInfo";
+import CheckoutUserRegister from "../Checkout/CheckoutUserRegister";
 
 function Checkout() {
     const cart = useCart();
-    const isCartEmpty = cart.length === 0;
-
-    const renderCheckoutData = () => (
-        <Container className="bg-white bg-opacity-25 rounded-pill text-center ">
-            <h3>Price: {Number((cart.length * 3.99).toFixed(2))}$</h3>
-            <h3>Number of Elements: {cart.length}</h3>
-        </Container>
-    );
-
-    const handleSubmit = (event) => {
-        event.defaultPrevented()
-    }
+    const renderCartData = cart.length !== 0;
+    const mdScreenColSize = cart.length === 0 ? 12 : 6;
 
     return (
-        <Container>
-            <Row className="mt-5">
-                <Col xs={12} md={isCartEmpty ? 12 : 6} className="mb-3">
-                    <Form className="form-register" onSubmit={handleSubmit}>
-                        <CheckoutMessage isCartEmpty={isCartEmpty} />
-                        {!isCartEmpty && renderCheckoutData()}
-                        {!isCartEmpty && <UserRegister />}
-                    </Form>
-                </Col>
-                {!isCartEmpty && (
-                    <Col xs={12} md={6} className="mx-auto">
-                        <Container className="mx-5">
-                            <CartContent />
+        <Container fluid>
+            <Row>
+                <Row className="row-cols-2">
+                    <Col xs={12}  md={mdScreenColSize}>
+                        <Container>
+                            <CheckoutMessage />
                         </Container>
                     </Col>
-                )}
+
+                    <Col xs={12} md={mdScreenColSize} className="d-flex justify-content-center align-items-center">
+                        <div className="d-flex justify-content-center">
+                            <Container>
+                                <CartContent />
+                            </Container>
+                        </div>
+                    </Col>
+                </Row>
+                {renderCartData &&
+                <Row className="row-cols-2">
+                    <Col xs={12}  md={mdScreenColSize}>
+                        <CheckoutCartInfo />
+                        <CheckoutUserRegister />
+                    </Col>
+                    <Col xs={12} md={mdScreenColSize} className="bg-info d-none"></Col>
+                </Row>}
             </Row>
         </Container>
     );
