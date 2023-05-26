@@ -84,8 +84,8 @@ function cartReducer(cart, action, dispatch) {
             return cart;
         }
         case 'removeItem': {
-            const movie = buildCartProduct(action.movie);
-            fetchPostToCart({ url: '/api/removeItem', data: movie })
+            const movieToClear = buildCartProduct(action.movie);
+            fetchPostToCart({ url: '/api/removeItem', data: movieToClear })
                 .then(() => {
                     fetchGetCart({ url: '/api/getCart' })
                         .then((res) => {
@@ -101,19 +101,19 @@ function cartReducer(cart, action, dispatch) {
             return cart;
         }
         case 'clear': {
-            fetchPostToCart({ url: '/api/clearCart', data: null })
-                .then(() => {
-                    fetchGetCart({ url: '/api/getCart' })
-                        .then((res) => {
-                            action.dispatch({ type: 'initialize', cart: res });
-                        })
-                        .catch((error) => {
-                            console.log(error.message, error.code);
-                        });
-                })
-                .catch((error) => {
-                    console.log(error.message, error.code);
-                });
+            // fetchPostToCart({ url: '/api/clearCart', data: null })
+            //     .then(() => {
+            //         fetchGetCart({ url: '/api/getCart' })
+            //             .then((res) => {
+            //                 action.dispatch({ type: 'initialize', cart: res });
+            //             })
+            //             .catch((error) => {
+            //                 console.log(error.message, error.code);
+            //             });
+            //     })
+            //     .catch((error) => {
+            //         console.log(error.message, error.code);
+            //     });
             return cart;
         }
         default: {
@@ -124,8 +124,8 @@ function cartReducer(cart, action, dispatch) {
 
 
 function buildCartProduct(movie){
-
     return {
+    {console.log(movie)}
         movieId: movie.id,
         movieImage: movie.poster_path,
         movieTitle: movie.title,

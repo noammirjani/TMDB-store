@@ -2,46 +2,59 @@ package hac.beans;
 
 import java.io.Serializable;
 import java.util.Objects;
+
+import org.hibernate.query.sql.internal.ParameterRecognizerImpl;
 import org.springframework.stereotype.Component;
 
-@Component(value="movieProduct")
-public class Movie implements Serializable{
-
+@Component
+public class Movie implements Serializable {
     static final Double cost = 3.99;
-    private String movieImage, movieTitle, movieReleaseDate ;
+    private String movieImage, movieTitle, movieReleaseDate;
     private Double moviePrice;
+    private Integer movieId;
 
     public Movie() {}
 
     // getters and setters
+
     public String getMovieImage() {
-
         return movieImage;
-    }
-    public String getMovieTitle() {
-
-        return movieTitle;
-    }
-    public String getMovieReleaseDate() {
-
-        return movieReleaseDate;
-    }
-    public Double getMoviePrice() {
-
-        return moviePrice;
     }
 
     public void setMovieImage(String movieImage) {
-        this.movieImage = movieImage;}
-    public void setMovieTitle(String movieTitle) {
-
-        this.movieTitle=movieTitle;
+        this.movieImage = movieImage;
     }
-    public void setMovieReleaseDate(String movieReleaseDate) {
-        this.movieReleaseDate=movieReleaseDate;}
-    public void setMoviePrice(Double moviePrice) {
 
+    public String getMovieTitle() {
+        return movieTitle;
+    }
+
+    public void setMovieTitle(String movieTitle) {
+        this.movieTitle = movieTitle;
+    }
+
+    public String getMovieReleaseDate() {
+        return movieReleaseDate;
+    }
+
+    public void setMovieReleaseDate(String movieReleaseDate) {
+        this.movieReleaseDate = movieReleaseDate;
+    }
+
+    public Double getMoviePrice() {
+        return moviePrice;
+    }
+
+    public void setMoviePrice(Double moviePrice) {
         this.moviePrice = moviePrice < 0 ? cost : moviePrice;
+    }
+
+    public Integer getMovieId() {
+        return this.movieId ;
+    }
+
+    public void setMovieId(Integer movieId) {
+        this.movieId = movieId;
     }
 
     @Override
@@ -54,10 +67,9 @@ public class Movie implements Serializable{
         }
         Movie other = (Movie) obj;
 
-        return  Objects.equals(movieTitle, other.movieTitle) &&
-                Objects.equals(movieReleaseDate, other.movieReleaseDate)&&
+        return Objects.equals(movieTitle, other.movieTitle) &&
+                Objects.equals(movieReleaseDate, other.movieReleaseDate) &&
                 Objects.equals(movieImage, other.movieImage) &&
                 Objects.equals(moviePrice, other.moviePrice);
     }
-
 }

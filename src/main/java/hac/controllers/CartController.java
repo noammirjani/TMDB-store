@@ -1,5 +1,4 @@
 package hac.controllers;
-
 import hac.beans.Movie;
 import hac.beans.MovieList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +12,12 @@ import java.util.ArrayList;
 public class CartController {
 
     @Autowired
-    @Qualifier("MovieCart")
+    @Qualifier("movieListBean")
     private MovieList movieList;
 
-    @Autowired
+
     @GetMapping("/getCart")
     public ResponseEntity<ArrayList<Movie>> getCartContent(){
-
         return ResponseEntity.ok(movieList.getMovies());
     }
 
