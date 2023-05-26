@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Col, Row, Container } from "react-bootstrap";
 import CheckoutMessage from "../Checkout/CheckoutMessage";
 import { useCart } from "../Context/CartProvider";
@@ -11,6 +11,15 @@ function Checkout() {
     const cart = useCart();
     const renderCartData = cart.length !== 0;
     const mdScreenColSize = cart.length === 0 ? 12 : 6;
+    const [payment, setPayment] = useState(calcPrice());
+
+    useEffect(() => {
+        setPayment(calcPrice())
+    }, [cart]);
+
+    function calcPrice() {
+        return Number((cart.length * 3.99).toFixed(2));
+    }
 
     return (
         <Container fluid>
@@ -32,8 +41,8 @@ function Checkout() {
                 {renderCartData && (
                     <Row className="row-cols-2">
                         <Col xs={12} md={mdScreenColSize}>
-                            <CheckoutCartInfo />
-                            <CheckoutUserRegister />
+                            <CheckoutCartInfo payment={payment}/>
+                            <CheckoutUserRegister payment={payment}/>
                         </Col>
                         <Col xs={12} md={mdScreenColSize} className="d-none d-md-block"></Col>
                     </Row>

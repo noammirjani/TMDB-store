@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Form, InputGroup } from "react-bootstrap";
 
-function FormGroup({ controlId, label, feedback, type}) {
+function FormGroup({ controlId, label, feedback, type, value, setValue}) {
 
     return (
         <Col>
@@ -10,7 +10,11 @@ function FormGroup({ controlId, label, feedback, type}) {
                 <Col>
                     <InputGroup hasValidation>
                         {label && <InputGroup.Text>@</InputGroup.Text>}
-                        <Form.Control type={type} placeholder={label} required className="text-center"/>
+                        <Form.Control type={type}
+                                      placeholder={label}
+                                      value={value}
+                                      onChange={(event) => setValue(event.target.value)}
+                                      required className="text-center"/>
                         <Form.Control.Feedback type="invalid">
                             {feedback}
                         </Form.Control.Feedback>
