@@ -1,43 +1,36 @@
-import React, {useState} from "react";
-import {Container, Form} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import React, { useState } from "react";
+import { Container, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import CheckoutFormContent from "./CheckoutFormContent";
 import ToastMsg from "../Utils/ToastMsg";
-import axios from "axios";
-import {fetchRequest} from "../Utils/ServerFetchRequest"
+import { fetchRequest } from "../Utils/ServerFetchRequest";
+import {useCartDispatch} from "../Context/CartProvider";
 
-
-function CheckoutUserRegister({payment}) {
-
+function CheckoutUserRegister({ payment }) {
+    const dispatch = useCartDispatch();
     const [showToast, setShowToast] = useState(false);
-    const [firstName, setFirstName] = useState("");
-    const [lastName,  setLastName] = useState("");
-    const [email,     setEmail] = useState("");
-    //payment
+    const [formData, setFormData] = useState({firstName: "", lastName: "", email: "",});
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(firstName, lastName, email, payment);
+        console.log(formData.firstName, formData.lastName, formData.email, payment);
         let data = {
-            firstName: firstName.toLowerCase(),
-            lastName: lastName.toLowerCase(),
-            email: email.toLowerCase(),
+            firstName: formData.firstName.toLowerCase().trim(),
+            lastName: formData.lastName.toLowerCase().trim(),
+            email: formData.email.toLowerCase().trim(),
             payment: payment,
-        }
-        await fetchRequest('POST',  {url: "/api/purchase", data:data})
-        setShowToast(true)
-    }
-
+        };
+        await fetchRequest("POST", { url: "/api/purchase", data: data });
+        setShowToast(true);
+        setTimeout(() => {
+            dispatch({ type: 'update', dispatch:dispatch});
+        }, 2500);
+    };
 
     return (
         <>
             <Form className="form-register" onSubmit={handleSubmit}>
-                <CheckoutFormContent firstName={firstName}
-                                     setFirstName={setFirstName}
-                                     lastName={lastName}
-                                     setLastName={setLastName}
-                                     email={email}
-                                     setEmail={setEmail}
-                />
+                <CheckoutFormContent formData={formData} setFormData={setFormData} />
                 <Container className="d-flex justify-content-center mt-3">
                     <Link to={`/`} className={`btn btn-primary px-4 gap-3 mx-1`}>
                         Continue Shopping
@@ -47,9 +40,12 @@ function CheckoutUserRegister({payment}) {
                     </button>
                 </Container>
             </Form>
-            <ToastMsg text="BOUGHT SUCCESSFULLY, ENJOY!" setMode={setShowToast} mode={showToast} />
+            <ToastMsg
+                text="BOUGHT SUCCESSFULLY, ENJOY!"
+                setMode={setShowToast}
+                mode={showToast}
+            />
         </>
-
     );
 }
 

@@ -67,10 +67,6 @@ public class Movie implements Serializable {
         }
         Movie other = (Movie) obj;
 
-        return Objects.equals(movieTitle, other.movieTitle) &&
-                Objects.equals(movieReleaseDate, other.movieReleaseDate) &&
-                Objects.equals(movieImage, other.movieImage) &&
-                Objects.equals(moviePrice, other.moviePrice) &&
-                Objects.equals(movieId, other.movieId);
+        return Objects.equals(movieId, other.movieId);
     }
 }

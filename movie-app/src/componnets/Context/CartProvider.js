@@ -12,8 +12,9 @@ export function CartProvider({ children }) {
 
     useEffect(() => {
         const initializeCart = async () => {
-            const data = await fetchRequest('GET', { url: '/api/getCart' })
-            dispatch({ type: 'initialize', cart: data });
+            // const data = await fetchRequest('GET', { url: '/api/getCart' })
+            // dispatch({ type: 'initialize', cart: data });
+            dispatch({ type: 'update', dispatch:dispatch});
         };
         initializeCart();
     }, []);
@@ -39,14 +40,13 @@ export function useCartDispatch() {
 const fetchUpdate = (request,  url, body, setData) => {
     const axiosData = {url: url, data:body}
     fetchRequest(request, axiosData)
-        .then(() => {fetchRequest('GET', {url: '/api/getCart'})
-                .then((res) => {setData({ type: 'initialize', cart: res }); })
-                .catch((error) => { console.log(error.message, error.code); });
-        })
+        .then(() => {setData({type:'update', dispatch:setData})})
         .catch((error) => {console.log(error.message, error.code);});
 }
 
+
 function cartReducer(cart, action) {
+
     switch (action.type) {
         case 'initialize': {
             return action.cart;
@@ -62,6 +62,12 @@ function cartReducer(cart, action) {
         }
         case 'clear': {
             fetchUpdate('DELETE', '/api/clearCart', null, action.dispatch)
+            return cart;
+        }
+        case 'update':{
+            fetchRequest('GET', {url: '/api/getCart'})
+                .then((res) => {action.dispatch({ type: 'initialize', cart: res }); })
+                .catch((error) => { console.log(error.message, error.code); });
             return cart;
         }
         default: {

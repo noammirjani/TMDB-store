@@ -9,7 +9,7 @@ function ToastMsg({ mode, setMode, text }) {
         if (mode) {
             const timer = setTimeout(() => {
                 toggleShowToast();
-            }, 2000); // Adjust the duration (in milliseconds) as needed
+            }, 2500); // Adjust the duration (in milliseconds) as needed
             return () => clearTimeout(timer);
         }
     }, [mode]);
