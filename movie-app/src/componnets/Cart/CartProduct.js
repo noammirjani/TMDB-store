@@ -3,17 +3,16 @@ import { Button, Row, Col, Card, Container } from "react-bootstrap";
 import { useCartDispatch } from '../Context/CartProvider';
 import SvgIcon from "../Utils/SvgIcon";
 
-function CartProduct({ movie, index }) {
+function CartProduct({ movie }) {
     const imageUrlPrefix = "https://image.tmdb.org/t/p/w500";
     let movieImage =
         movie.movieImage !== null ? imageUrlPrefix + movie.movieImage : '/assets/unknowen.png';
-    const productIndex = index;
     const dispatch = useCartDispatch();
 
     const removeMovieBtn = () => {
         return  <Button
             variant="primary"
-            onClick={() => {dispatch({type: 'removeItem', removeIndex: productIndex, dispatch: dispatch});}}>
+            onClick={() => {dispatch({type: 'removeItem',  movie:movie, dispatch: dispatch});}}>
             <SvgIcon name={"remove"} size={16} />
         </Button>
     }

@@ -10,7 +10,7 @@ function CartContent() {
     const cartItems = () => {
         return cart.map((product, index) => (
             <Row key={index}>
-                <CartProduct movie={product} index={index}/>
+                <CartProduct movie={product}/>
             </Row>
         ))
     }

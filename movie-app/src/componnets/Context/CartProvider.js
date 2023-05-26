@@ -1,4 +1,4 @@
-import {createContext, useContext, useEffect, useReducer, useState} from 'react';
+import {createContext, useContext, useEffect, useReducer} from 'react';
 import axios from "axios";
 
 
@@ -61,7 +61,7 @@ const fetchPostToCart = async (httpRequest) => {
         console.log(error.message, error.code);
     }
 };
-function cartReducer(cart, action, dispatch) {
+function cartReducer(cart, action) {
     switch (action.type) {
         case 'initialize': {
             return action.cart;
@@ -84,8 +84,7 @@ function cartReducer(cart, action, dispatch) {
             return cart;
         }
         case 'removeItem': {
-            const movieToClear = buildCartProduct(action.movie);
-            fetchPostToCart({ url: '/api/removeItem', data: movieToClear })
+            fetchPostToCart({ url: '/api/removeItem', data: action.movie })
                 .then(() => {
                     fetchGetCart({ url: '/api/getCart' })
                         .then((res) => {
@@ -101,19 +100,19 @@ function cartReducer(cart, action, dispatch) {
             return cart;
         }
         case 'clear': {
-            // fetchPostToCart({ url: '/api/clearCart', data: null })
-            //     .then(() => {
-            //         fetchGetCart({ url: '/api/getCart' })
-            //             .then((res) => {
-            //                 action.dispatch({ type: 'initialize', cart: res });
-            //             })
-            //             .catch((error) => {
-            //                 console.log(error.message, error.code);
-            //             });
-            //     })
-            //     .catch((error) => {
-            //         console.log(error.message, error.code);
-            //     });
+            fetchPostToCart({ url: '/api/clearCart', data: null })
+                .then(() => {
+                    fetchGetCart({ url: '/api/getCart' })
+                        .then((res) => {
+                            action.dispatch({ type: 'initialize', cart: res });
+                        })
+                        .catch((error) => {
+                            console.log(error.message, error.code);
+                        });
+                })
+                .catch((error) => {
+                    console.log(error.message, error.code);
+                });
             return cart;
         }
         default: {
@@ -125,7 +124,6 @@ function cartReducer(cart, action, dispatch) {
 
 function buildCartProduct(movie){
     return {
-    {console.log(movie)}
         movieId: movie.id,
         movieImage: movie.poster_path,
         movieTitle: movie.title,
