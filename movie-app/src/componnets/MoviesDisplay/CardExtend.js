@@ -24,8 +24,9 @@ function CardExtend({ movieImage, movie, showModal, onClose }) {
                 <Button variant="success"
                         onClick={()=>{
                             dispatch({
-                                type: 'added',
-                                movie : movie
+                                type: 'addItem',
+                                movie : movie,
+                                dispatch: dispatch
                             });
                         }}>
                     <SvgIcon name="addToCart" size={25}/>

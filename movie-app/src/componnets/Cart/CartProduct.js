@@ -6,16 +6,14 @@ import SvgIcon from "../Utils/SvgIcon";
 function CartProduct({ movie, index }) {
     const imageUrlPrefix = "https://image.tmdb.org/t/p/w500";
     let movieImage =
-        movie.movie.poster_path !== null
-            ? imageUrlPrefix + movie.movie.poster_path
-            : '/assets/unknowen.png';
+        movie.movieImage !== null ? imageUrlPrefix + movie.movieImage : '/assets/unknowen.png';
     const productIndex = index;
     const dispatch = useCartDispatch();
 
     const removeMovieBtn = () => {
         return  <Button
             variant="primary"
-            onClick={() => {dispatch({type: 'remove', removeIndex: productIndex});}}>
+            onClick={() => {dispatch({type: 'removeItem', removeIndex: productIndex, dispatch: dispatch});}}>
             <SvgIcon name={"remove"} size={16} />
         </Button>
     }
@@ -29,9 +27,9 @@ function CartProduct({ movie, index }) {
                 <Col className="col-md-8">
                     <Card.Body className="card-body">
                         <Container className="d-flex flex-column h-100  justify-content-center">
-                            <h5 className="card-title text-center">{movie.movie.title}</h5>
+                            <h5 className="card-title text-center">{movie.movieTitle}</h5>
                             <div className="text-center">{removeMovieBtn()} </div>
-                            <h6>  3.99$</h6>
+                            <h6>  {movie.moviePrice}$</h6>
                         </Container>
                     </Card.Body>
                 </Col>

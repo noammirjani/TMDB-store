@@ -26,7 +26,7 @@ function Cart() {
 
     const emptyCartButton = () => {
         return (
-            <Button variant="danger" onClick={() => { dispatch({ type: 'delete' }); }}>
+            <Button variant="danger" onClick={() => { dispatch({ type: 'clear', dispatch:dispatch}); }}>
                 Empty Cart
             </Button>
         );

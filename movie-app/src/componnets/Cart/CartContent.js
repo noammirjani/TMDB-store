@@ -1,5 +1,5 @@
 import {Container, Row} from "react-bootstrap";
-import React from "react";
+import React, {useEffect} from "react";
 import CartProduct from "../Cart/CartProduct";
 import {useCart} from "../Context/CartProvider";
 

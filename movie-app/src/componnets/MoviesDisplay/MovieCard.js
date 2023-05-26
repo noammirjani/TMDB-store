@@ -27,8 +27,9 @@ function MovieCard ({movie}) {
                                 <button type="button" className="btn btn-success"
                                 onClick={()=>{
                                     dispatch({
-                                        type: 'added',
-                                        movie : movie
+                                        type: 'addItem',
+                                        movie : movie,
+                                        dispatch: dispatch
                                     });
                                 }}
                                 >
