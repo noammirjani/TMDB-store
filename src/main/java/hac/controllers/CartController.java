@@ -29,7 +29,7 @@ public class CartController {
     }
 
 
-    @PostMapping("/removeItem")
+    @DeleteMapping("/removeItem")
     public ResponseEntity<String> removeItemFromCartContent(@RequestBody Movie movie) {
         boolean state = movieList.removeMovie(movie);
         String text = state ? "Ok! The movie has been removed" : "The movie was not found in the cart";
@@ -37,7 +37,8 @@ public class CartController {
     }
 
 
-    @PostMapping("/clearCart")
+
+    @DeleteMapping("/clearCart")
     public ResponseEntity<String> clearCartContent() {
         movieList.clear();
         return ResponseEntity.ok("ok! cart is empty");

@@ -1,5 +1,6 @@
 import {createContext, useContext, useEffect, useReducer} from 'react';
-import axios from "axios";
+// import axios from "axios";
+import {fetchRequest} from "../Utils/ServerFetchRequest"
 
 
 const CartContext = createContext(null);
@@ -7,11 +8,11 @@ const CartDispatchContext = createContext(null);
 
 export function CartProvider({ children }) {
 
-    const [cart, dispatch] = useReducer( cartReducer, [])
+    const [cart, dispatch] = useReducer(cartReducer, [])
 
     useEffect(() => {
         const initializeCart = async () => {
-            const data = await fetchGetCart({ url: '/api/getCart' });
+            const data = await fetchRequest('GET', { url: '/api/getCart' })
             dispatch({ type: 'initialize', cart: data });
         };
         initializeCart();
@@ -35,32 +36,16 @@ export function useCartDispatch() {
     return useContext(CartDispatchContext);
 }
 
-const fetchGetCart = async (httpRequest) => {
-    const headers = {
-        'Content-Type': 'application/json',
-    };
-    try {
-        const response = await axios.get(httpRequest.url, { headers });
-        return response.data;
-    } catch (error) {
-        console.log('ERROR',error);
-        console.log(error.message, error.code);
-        return [];
-    }
-};
+const fetchUpdate = (request,  url, body, setData) => {
+    const axiosData = {url: url, data:body}
+    fetchRequest(request, axiosData)
+        .then(() => {fetchRequest('GET', {url: '/api/getCart'})
+                .then((res) => {setData({ type: 'initialize', cart: res }); })
+                .catch((error) => { console.log(error.message, error.code); });
+        })
+        .catch((error) => {console.log(error.message, error.code);});
+}
 
-
-const fetchPostToCart = async (httpRequest) => {
-    const headers = {
-        'Content-Type': 'application/json',
-    };
-    try {
-        const response = await axios.post(httpRequest.url, httpRequest.data, { headers });
-        console.log( response.data);
-    } catch (error) {
-        console.log(error.message, error.code);
-    }
-};
 function cartReducer(cart, action) {
     switch (action.type) {
         case 'initialize': {
@@ -68,51 +53,15 @@ function cartReducer(cart, action) {
         }
         case 'addItem': {
             const movieToAdd = buildCartProduct(action.movie);
-            fetchPostToCart({ url: '/api/addItem', data: movieToAdd })
-                .then(() => {
-                    fetchGetCart({ url: '/api/getCart' })
-                        .then((res) => {
-                            action.dispatch({ type: 'initialize', cart: res });
-                        })
-                        .catch((error) => {
-                            console.log(error.message, error.code);
-                        });
-                })
-                .catch((error) => {
-                    console.log(error.message, error.code);
-                });
+            fetchUpdate('POST', '/api/addItem', movieToAdd, action.dispatch)
             return cart;
         }
         case 'removeItem': {
-            fetchPostToCart({ url: '/api/removeItem', data: action.movie })
-                .then(() => {
-                    fetchGetCart({ url: '/api/getCart' })
-                        .then((res) => {
-                            action.dispatch({ type: 'initialize', cart: res });
-                        })
-                        .catch((error) => {
-                            console.log(error.message, error.code);
-                        });
-                })
-                .catch((error) => {
-                    console.log(error.message, error.code);
-                });
-            return cart;
+            fetchUpdate('DELETE','/api/removeItem', action.movie, action.dispatch)
+             return cart;
         }
         case 'clear': {
-            fetchPostToCart({ url: '/api/clearCart', data: null })
-                .then(() => {
-                    fetchGetCart({ url: '/api/getCart' })
-                        .then((res) => {
-                            action.dispatch({ type: 'initialize', cart: res });
-                        })
-                        .catch((error) => {
-                            console.log(error.message, error.code);
-                        });
-                })
-                .catch((error) => {
-                    console.log(error.message, error.code);
-                });
+            fetchUpdate('DELETE', '/api/clearCart', null, action.dispatch)
             return cart;
         }
         default: {
@@ -120,7 +69,6 @@ function cartReducer(cart, action) {
         }
     }
 }
-
 
 function buildCartProduct(movie){
     return {

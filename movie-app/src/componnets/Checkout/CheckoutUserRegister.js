@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import CheckoutFormContent from "./CheckoutFormContent";
 import ToastMsg from "../Utils/ToastMsg";
 import axios from "axios";
+import {fetchRequest} from "../Utils/ServerFetchRequest"
 
 
 function CheckoutUserRegister({payment}) {
@@ -13,7 +14,7 @@ function CheckoutUserRegister({payment}) {
     const [lastName,  setLastName] = useState("");
     const [email,     setEmail] = useState("");
     //payment
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(firstName, lastName, email, payment);
         let data = {
@@ -22,23 +23,10 @@ function CheckoutUserRegister({payment}) {
             email: email.toLowerCase(),
             payment: payment,
         }
-        fetchPostPurchase(data);
-        //do fetch
-        //if not error!! -> turn the toast to true
+        await fetchRequest('POST',  {url: "/api/purchase", data:data})
         setShowToast(true)
     }
 
-    async function  fetchPostPurchase (data)  {
-        const headers = {
-            'Content-Type': 'application/json',
-        };
-        try {
-            const response = await axios.post("/api/purchase", data, { headers });
-            console.log( response.data);
-        } catch (error) {
-            console.log(error.message, error.code);
-        }
-    };
 
     return (
         <>
