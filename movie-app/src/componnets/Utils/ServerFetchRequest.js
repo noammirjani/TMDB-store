@@ -1,14 +1,12 @@
 import axios from 'axios';
 
-
 /**
- * Fetch Request
- *
- * A utility function for making HTTP requests using Axios.
+ * Performs an HTTP request using Axios.
  *
  * @param {string} method - The HTTP method (GET, POST, DELETE).
- * @param {Object} httpRequest - The HTTP request object containing the URL and data.
- * @returns {Promise} The response data or an empty array if an error occurs.
+ * @param {object} httpRequest - The HTTP request object containing the URL and data.
+ * @returns {Promise} A promise that resolves with the response data or rejects with an error.
+ * @throws {Error} If the API request fails.
  */
 export const fetchRequest = async (method, httpRequest) => {
     const headers = {
@@ -25,7 +23,6 @@ export const fetchRequest = async (method, httpRequest) => {
             await axios.delete(httpRequest.url, { headers, data: httpRequest.data });
         }
     } catch (error) {
-        console.log(error.message, error.code);
-        return [];
+        throw new Error(`Failed API request: \n${error.message} ${error.code}`);
     }
 };

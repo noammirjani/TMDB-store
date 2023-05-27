@@ -23,6 +23,7 @@ function CheckoutUserRegister({ payment }) {
     const dispatch = useCartDispatch();
     const [showToast, setShowToast] = useState(false);
     const [formData, setFormData] = useState({firstName: "", lastName: "", email: "",});
+    const [error, setError] = useState(false)
 
     /**
      * Handle form submission
@@ -41,11 +42,13 @@ function CheckoutUserRegister({ payment }) {
             email: formData.email.toLowerCase().trim(),
             payment: payment,
         };
-        await fetchRequest("POST", { url: "/api/purchase", data: data });
+        await fetchRequest("POST", { url: "/api/purchase", data: data })
+            .then(() => setError(false))
+            .catch(() => setError(true))
         setShowToast(true);
         setTimeout(() => {
             dispatch({ type: 'update', dispatch:dispatch});
-        }, 2500);
+        }, 4000);
     };
 
     return (
@@ -61,11 +64,18 @@ function CheckoutUserRegister({ payment }) {
                     </button>
                 </Container>
             </Form>
-            <ToastMsg
+            {!error && <ToastMsg
                 text="BOUGHT SUCCESSFULLY, ENJOY!"
                 setMode={setShowToast}
                 mode={showToast}
-            />
+                error={false}
+            />}
+            {error &&  <ToastMsg
+                text="ERROR! THERE IS PROBLEM WITH THE SERVER"
+                setMode={setShowToast}
+                mode={showToast}
+                error={true}
+            />}
         </>
     );
 }

@@ -1,33 +1,30 @@
-/**
- * CartProvider Component
- *
- * A component that provides cart data and dispatch functions using React context.
- * It initializes the cart, manages cart state, and handles cart actions such as adding, removing, and updating items.
- */
-import {createContext, useContext, useEffect, useReducer} from 'react';
+import {createContext, useContext, useEffect, useReducer, useState} from 'react';
 import {fetchRequest} from "../Utils/ServerFetchRequest"
+import UserMessage from "../MoviesDisplay/UserMessage";
 
-// Create cart context
+
 const CartContext = createContext(null);
 const CartDispatchContext = createContext(null);
 
-
 /**
- * CartProvider Component
+ * CartProvider component manages the state and actions related to the cart.
  *
- * @param {Object} props - The component props.
- * @param {React.ReactNode} props.children - The child components.
- * @returns {JSX.Element} The rendered component.
+ * @param {object} children - The child components to be wrapped by the CartProvider.
+ * @returns {JSX.Element} The CartProvider component.
  */
 export function CartProvider({ children }) {
 
     const [cart, dispatch] = useReducer(cartReducer, [])
+    const [error, setError] = useState('');
 
     useEffect(() => {
         const initializeCart = async () => {
-            // Fetch cart data from server
-            const data = await fetchRequest('GET', { url: '/api/getCart' });
-            dispatch({ type: 'initialize', cart: data });
+            try {
+                const data = await fetchRequest('GET', { url: '/api/getCart' });
+                dispatch({ type: 'initialize', cart: data });
+            } catch (error) {
+                setError(error.message);
+            }
         };
         initializeCart();
     }, []);
@@ -35,6 +32,7 @@ export function CartProvider({ children }) {
 
     return (
         <CartContext.Provider value={cart}>
+            {error && <UserMessage userInfo={error} isAlert={true} />}
             <CartDispatchContext.Provider value={dispatch}>
                 {children}
             </CartDispatchContext.Provider>
@@ -43,20 +41,16 @@ export function CartProvider({ children }) {
 }
 
 /**
- * useCart Hook
+ * Custom hook to access the cart state.
  *
- * A custom hook to access the cart data from the context.
- *
- * @returns {Array} The cart data.
+ * @returns {Array} The cart state.
  */
 export function useCart() {
     return useContext(CartContext);
 }
 
 /**
- * useCartDispatch Hook
- *
- * A custom hook to access the cart dispatch function from the context.
+ * Custom hook to access the cart dispatch function.
  *
  * @returns {Function} The cart dispatch function.
  */
@@ -64,15 +58,14 @@ export function useCartDispatch() {
     return useContext(CartDispatchContext);
 }
 
+
 /**
- * fetchUpdate Function
+ * Fetches the updated cart data from the server and dispatches the corresponding action.
  *
- * A helper function that sends a request to the server and updates the data state.
- *
- * @param {string} request - The HTTP request method (e.g., "GET", "POST", "DELETE").
- * @param {string} url - The URL for the server request.
- * @param {Object} body - The request body.
- * @param {Function} setData - The function to update the data state.
+ * @param {string} request - The HTTP method for the request (POST or DELETE).
+ * @param {string} url - The URL for the API request.
+ * @param {object} body - The request body data.
+ * @param {Function} setData - The dispatch function to update the cart state.
  */
 const fetchUpdate = (request,  url, body, setData) => {
     const axiosData = {url: url, data:body}
@@ -81,15 +74,13 @@ const fetchUpdate = (request,  url, body, setData) => {
         .catch((error) => {console.log(error.message, error.code);});
 }
 
-
 /**
- * Cart Reducer
- *
- * A reducer function that handles cart actions and updates the cart state accordingly.
+ * Reducer function for managing the cart state.
  *
  * @param {Array} cart - The current cart state.
- * @param {Object} action - The cart action.
+ * @param {object} action - The action object describing the state update.
  * @returns {Array} The updated cart state.
+ * @throws {Error} If an unknown action type is encountered.
  */
 function cartReducer(cart, action) {
 
@@ -98,23 +89,19 @@ function cartReducer(cart, action) {
             return action.cart;
         }
         case 'addItem': {
-            // Send request to add item to cart
             const movieToAdd = buildCartProduct(action.movie);
             fetchUpdate('POST', '/api/addItem', movieToAdd, action.dispatch)
             return cart;
         }
         case 'removeItem': {
-            // Send request to remove item from cart
             fetchUpdate('DELETE','/api/removeItem', action.movie, action.dispatch)
-             return cart;
+            return cart;
         }
         case 'clear': {
-            // Send request to clear cart
             fetchUpdate('DELETE', '/api/clearCart', null, action.dispatch)
             return cart;
         }
         case 'update':{
-            // Fetch updated cart data from server
             fetchRequest('GET', {url: '/api/getCart'})
                 .then((res) => {action.dispatch({ type: 'initialize', cart: res }); })
                 .catch((error) => { console.log(error.message, error.code); });
@@ -125,7 +112,12 @@ function cartReducer(cart, action) {
         }
     }
 }
-
+/**
+ * Builds the cart product object from the movie data.
+ *
+ * @param {object} movie - The movie data.
+ * @returns {object} The cart product object.
+ */
 function buildCartProduct(movie){
     return {
         movieId: movie.id,
