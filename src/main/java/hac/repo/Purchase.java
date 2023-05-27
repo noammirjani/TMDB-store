@@ -4,9 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Email; // FIX!!!!
+import jakarta.validation.constraints.NotEmpty; // FIX!!!!
+import jakarta.validation.constraints.PositiveOrZero; // FIX!!!!
 import java.io.Serializable;
 
 /**

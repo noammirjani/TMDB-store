@@ -1,41 +1,65 @@
-import SearchBar from "../search/SearchBar";
+/**
+ * Search Component
+ *
+ * A component that handles the search functionality and displays the search bar,
+ * filter options, search history, and search results.
+ */
+import SearchBar from "../Search/SearchBar";
 import React, {useState, useEffect, useReducer } from "react";
-import MoviesGrid from "../moviesDisplay/MoviesGrid";
-import SearchByMovieName from "../search/SearchByMovieName";
-import SearchByActor from "../search/SearchByActor";
+import MoviesGrid from "../MoviesDisplay/MoviesGrid";
+import SearchByMovieName from "../Search/SearchByMovieName";
+import SearchByActor from "../Search/SearchByActor";
 import {Container} from "react-bootstrap";
-import SearchByDates from "../search/SearchByDates";
-import SearchByGenres from "../search/SearchByGenres";
-import SearchHistory from "../search/SearchHistory";
+import SearchByDates from "../Search/SearchByDates";
+import SearchByGenres from "../Search/SearchByGenres";
+import SearchHistory from "../Search/SearchHistory";
 
 
+/**
+ * Search Component
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
 function Search(){
 
     const [selectedFilterType, setSelectedFilterType] = useState("movie name");
     const [openHistoryTable, setOpenHistoryTable] = useState(false);
     const [filterUrl, setFilterUrl] = useState("");
     const [searchValue, setSearchValue] = useState("");
-
     const [searchesData, dispatch] = useReducer(searchReducer, []);
 
+    // hook for search url changing
     useEffect(() => {
         if (searchValue !== "" && filterUrl !== "" && !searchesData.some(search => search.value === searchValue)) {
             handleAddSearch();
         }
     }, [filterUrl, searchValue]);
 
+    /**
+     * Handles re-running a search from the search history.
+     *
+     * @param {number} index - The index of the search in the search history.
+     */
     function handleReRunSearch(index) {
-        console.log("want to reseach ",searchesData[index].value);
         setOpenHistoryTable(false);
         setFilterUrl(searchesData[index].url);
     }
 
+
+    /**
+     * Handles adding a search to the search history.
+     */
     function handleAddSearch() {
         dispatch({
             type: 'added',
         });
     }
 
+    /**
+     * Handles removing a search from the search history.
+     *
+     * @param {number} index - The index of the search in the search history.
+     */
     function handleRemoveRow(index) {
         dispatch({
             type: 'remove',
@@ -43,6 +67,9 @@ function Search(){
         });
     }
 
+    /**
+     * Handles deleting all searches from the search history.
+     */
     function handleDeleteAll() {
         dispatch({
             type: 'delete',
@@ -50,6 +77,13 @@ function Search(){
     }
 
 
+    /**
+     * Search reducer function.
+     *
+     * @param {Array} searchesData - The current search history data.
+     * @param {Object} action - The action object describing the action to be performed.
+     * @returns {Array} The updated search history data.
+     */
     function searchReducer(searchesData, action) {
         switch (action.type) {
             case 'added': {

@@ -1,33 +1,67 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+/**
+ * Checkout Component
+ *
+ * A component that displays the checkout page with cart information and user registration form.
+ */
+import React, {useEffect, useState} from "react";
+import { Col, Row, Container } from "react-bootstrap";
+import CheckoutMessage from "../Checkout/CheckoutMessage";
 import { useCart } from "../Context/CartProvider";
 import CartContent from "../Cart/CartContent";
-import CheckoutMessage from "../Cart/CheckoutMessage";
-import UserRegister from "../Cart/UserRegister";
+import CheckoutCartInfo from "../Checkout/CheckoutCartInfo";
+import CheckoutUserRegister from "../Checkout/CheckoutUserRegister";
+import '../../styles/Checkout.css';
 
+
+/**
+ * Checkout Component
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
 function Checkout() {
     const cart = useCart();
-    const isCartEmpty = cart.length === 0;
+    const renderCartData = cart.length !== 0;
+    const mdScreenColSize = cart.length === 0 ? 12 : 6;
+    const [payment, setPayment] = useState(calcPrice());
 
-    const renderCheckoutData = () => (
-        <Container className="bg-white bg-opacity-25 rounded-pill text-center ">
-            <h3>Price: {Number((cart.length * 3.99).toFixed(2))}$</h3>
-            <h3>Number of Elements: {cart.length}</h3>
-        </Container>
-    );
+    // hook for cart change, update payment
+    useEffect(() => {
+        setPayment(calcPrice())
+    }, [cart]);
+
+
+    /**
+     * Calculate the total payment based on the cart items.
+     */
+    function calcPrice() {
+        return Number((cart.length * 3.99).toFixed(2));
+    }
 
     return (
-        <Container>
-            <Row className="mt-5">
-                <Col xs={12} md={isCartEmpty ? 12 : 6} className="mb-3">
-                    <CheckoutMessage isCartEmpty={isCartEmpty} />
-                    {!isCartEmpty && renderCheckoutData()}
-                    {!isCartEmpty && <UserRegister />}
-                </Col>
-                {!isCartEmpty && (
-                    <Col xs={12} md={6}>
-                        <CartContent />
+        <Container fluid>
+            <Row>
+                <Row className="row-cols-2 mb-2">
+                    <Col xs={12} md={mdScreenColSize}>
+                        <Container>
+                            <CheckoutMessage />
+                        </Container>
                     </Col>
+                    <Col xs={12} md={mdScreenColSize} className="d-flex justify-content-center align-items-center">
+                        <div className="d-flex justify-content-center cart-container">
+                            <Container>
+                                <CartContent />
+                            </Container>
+                        </div>
+                    </Col>
+                </Row>
+                {renderCartData && (
+                    <Row className="row-cols-2">
+                        <Col xs={12} md={mdScreenColSize}>
+                            <CheckoutCartInfo payment={payment}/>
+                            <CheckoutUserRegister payment={payment}/>
+                        </Col>
+                        <Col xs={12} md={mdScreenColSize} className="d-none d-md-block"></Col>
+                    </Row>
                 )}
             </Row>
         </Container>

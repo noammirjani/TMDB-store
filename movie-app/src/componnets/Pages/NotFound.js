@@ -1,9 +1,18 @@
+/**
+ * NotFound Component
+ *
+ * A component that displays a not found page with an error message and a button to navigate back to the website.
+ */
 import React from 'react';
 import "../../styles/NotFound.css"
 import {Container} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
-
+/**
+ * NotFound Component
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
 const NotFound = () => {
     return (
         <Container className="text-white text-center text-break mt-5">
