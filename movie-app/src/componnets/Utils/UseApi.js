@@ -1,15 +1,6 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 
-/**
- * useApi Hook
- *
- * A custom hook for making API requests.
- *
- * @param {string} initialUrl - The initial URL for the API request.
- * @param {any} initialData - The initial data for the API response.
- * @returns {Array} An array containing the API response data, loading state, error state, and page state.
- */
 const useApi = (initialUrl, initialData) => {
     const apiKey ="eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNzQ2ZGRkMDVlYjNiMjAxOGIwYTZjMzhhN2RlZjk1ZCIsInN1YiI6IjY0NThlMjdjMWI3MGFlMDE0NWVkNzdlNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.w46933noO_o7Ch2z1y0ogBxrkuC5WlS14o11ltrZ2sY"
     const headers = {
@@ -21,22 +12,40 @@ const useApi = (initialUrl, initialData) => {
     const [url, setUrl] = useState(initialUrl);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
+    const [isMorePages, setIsMorePages] = useState(false);
     const [page, setPage] = useState(1);
+    const [errorMsg, setErrorMsg] = useState({});
 
     const defaultFilters=`&page=${page}&include_adult=false&language=en-US`
 
-    /**
-     * fetchData Function
-     *
-     * Fetches data from the API using the current URL and updates the data state.
-     */
+    //hook over url
+    useEffect(() => {
+        setIsError(false)
+        setIsMorePages(true)
+        if(page === 1) fetchData() // page already sets to 1 and there is different url
+        else setPage(1)      // different url but the page is greater than 1
+
+    }, [url]);
+
+    // hook over page
+    useEffect(() => {
+        //if there is an error there is a problem with the previous fetch and we do not
+        // need to do another one until the user will want different url/page
+        if(isError === false && isMorePages === true)
+            fetchData();
+    }, [page]);
+
+
     const fetchData = async () => {
-        if(url === "") {
+        // url sets to empty string - cannot do fetch
+        if (url === "") {
             setData([])
             return;
         }
 
-        if(url === "/no-data") {
+        //url sets to rout that signs no need to fetch, return empty movie list
+        // this routs is for double fetching from tmdb like for the actors name/ discover by genres...
+        if (url === "/no-data") {
             setData({total_results: 0})
             return;
         }
@@ -44,41 +53,30 @@ const useApi = (initialUrl, initialData) => {
         setIsError(false);
         setIsLoading(true);
         try {
-            const result = await axios.get(url+defaultFilters, { headers });
+            const result = await axios.get(url + defaultFilters, {headers});
             setData(result.data);
 
             if(page >= result.data.total_pages)
-                setIsError(true)
+                setIsMorePages(false);
+            else
+                setIsMorePages(true);
 
         } catch (error) {
-            if(error.response.status === 422) { //passed the page limit of api
-                setPage(page-1)
-            }
-            else setData([])
 
-            setIsError(true);
+            if(error.response.status === 422) {
+                //passed the page limit of api
+                setIsMorePages(false)
+            }
+            else {
+                setData([])
+                setIsError(true);
+                setErrorMsg({code: error.message, msg: error.response.statusText})
+            }
         } finally {
             setIsLoading(false);
         }
-    };
-
-    useEffect(() => {
-        setIsError(false)
-
-        if(page === 1) fetchData() // page already sets to 1 and there is different url
-        else setPage(1)      // different url but the page is greater than 1
-
-    }, [url]);
-
-    useEffect(() => {
-        //if there is an error there is a problem with the previous fetch and we do not
-        // need to do another one until the user will want different url/page
-        if(isError === false)
-            fetchData();
-    }, [page]);
-
-
-    return [{ data, isLoading, isError, page}, setUrl, setPage];
+    }
+    return [{ data, isError, errorMsg, page, isMorePages, isLoading}, setUrl,setPage];
 };
 
 export default useApi;

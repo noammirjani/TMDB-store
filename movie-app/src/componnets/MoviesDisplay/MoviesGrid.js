@@ -1,9 +1,3 @@
-/**
- * MoviesGrid Component
- *
- * A component that displays a grid of movie cards.
- * It fetches movie data from an API and dynamically loads more movies when scrolling to the bottom of the page.
- */
 import { Container, Row } from "react-bootstrap";
 import { useState, useEffect } from 'react';
 import MovieCard from './MovieCard';
@@ -13,32 +7,33 @@ import Loading from "../Utils/Loading";
 
 
 /**
- * MoviesGrid Component
+ * Component for displaying a grid of movies.
  *
  * @param {Object} props - The component props.
- * @param {string} props.url - The URL to fetch movie data from.
- * @returns {JSX.Element} The rendered component.
+ * @param {string} props.url - The URL for fetching the movie data.
+ * @returns {JSX.Element} The MoviesGrid component.
  */
 function MoviesGrid(props) {
-    const [{ data, isLoading, isError, page}, doFetch, fetchPage] = useApi("", []);
+    const [{ data, isError, errorMsg, page, isMorePages, isLoading}, doFetch, fetchPage] = useApi("", []);
     const [cards, setCards] = useState([]);
     const [userInfo, setUserInfo] = useState("");
 
-    // hook for scrolling
+    // hook for loading trigger for the scrolling
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => { window.removeEventListener('scroll', handleScroll); };
     }, [isLoading]);
 
-    //hook for url changing
+    // hook for url changing
     useEffect(() => {
         doFetch(props.url);
     }, [doFetch, props.url]);
 
-    //hook for data change
+    // hook for data change
     useEffect(() => {
         if(data.length === 0){
             setCards([]);
+            if(isError) setUserInfo(`${errorMsg.code} : ${errorMsg.msg}` );
         }
         else if (data.total_results === 0){
             setCards([]);
@@ -51,31 +46,31 @@ function MoviesGrid(props) {
 
 
     /**
-     * Handle scroll event to trigger fetching more movies when scrolled to the bottom.
+     * Event handler for scrolling.
      */
     function handleScroll() {
         const isAtBottom =  window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
 
-        if (isAtBottom && !isLoading){
+        if (isAtBottom && !isLoading && isMorePages){
             fetchPage(page+1)
-            console.log("new page")
         }
     }
 
+
     /**
-     * Build movie cards from fetched movie data.
+     * Builds the movie cards based on the data.
      */
     function buildMovieCard() {
         if (data.length === 0) {
             setCards([]);
         } else {
-            console.log("create grid", data);
             const newCards = data.results.map((movie) => (
                 <MovieCard key={movie.id} movie={movie}/>
             ));
 
             if(page > 1) setCards([...cards, newCards]);
             else setCards(newCards);
+
         }
     }
 
