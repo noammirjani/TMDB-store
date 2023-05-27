@@ -2,7 +2,22 @@ import React from "react";
 import { Container, Row } from "react-bootstrap";
 import FormGroup from "./FormGroup";
 
+/**
+ * CheckoutFormContent Component
+ *
+ * A component that represents the form content in the checkout section.
+ * It includes form groups for collecting user information such as first name, last name, and email.
+ */
 function CheckoutFormContent({ formData, setFormData }) {
+
+    /**
+     * CheckoutFormContent Component
+     *
+     * @param {Object} props - The component props.
+     * @param {Object} props.formData - The form data object containing user information.
+     * @param {Function} props.setFormData - The function to update the form data.
+     * @returns {JSX.Element} The rendered component.
+     */
     return (
         <>
             <Container className="mt-5 rounded-pill bg-white bg-opacity-25 text-center p-4">

@@ -1,3 +1,8 @@
+/**
+ * Checkout Component
+ *
+ * A component that displays the checkout page with cart information and user registration form.
+ */
 import React, {useEffect, useState} from "react";
 import { Col, Row, Container } from "react-bootstrap";
 import CheckoutMessage from "../Checkout/CheckoutMessage";
@@ -7,16 +12,27 @@ import CheckoutCartInfo from "../Checkout/CheckoutCartInfo";
 import CheckoutUserRegister from "../Checkout/CheckoutUserRegister";
 import '../../styles/Checkout.css';
 
+
+/**
+ * Checkout Component
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
 function Checkout() {
     const cart = useCart();
     const renderCartData = cart.length !== 0;
     const mdScreenColSize = cart.length === 0 ? 12 : 6;
     const [payment, setPayment] = useState(calcPrice());
 
+    // hook for cart change, update payment
     useEffect(() => {
         setPayment(calcPrice())
     }, [cart]);
 
+
+    /**
+     * Calculate the total payment based on the cart items.
+     */
     function calcPrice() {
         return Number((cart.length * 3.99).toFixed(2));
     }

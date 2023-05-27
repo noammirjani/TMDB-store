@@ -1,5 +1,15 @@
 import axios from 'axios';
 
+
+/**
+ * Fetch Request
+ *
+ * A utility function for making HTTP requests using Axios.
+ *
+ * @param {string} method - The HTTP method (GET, POST, DELETE).
+ * @param {Object} httpRequest - The HTTP request object containing the URL and data.
+ * @returns {Promise} The response data or an empty array if an error occurs.
+ */
 export const fetchRequest = async (method, httpRequest) => {
     const headers = {
         'Content-Type': 'application/json',

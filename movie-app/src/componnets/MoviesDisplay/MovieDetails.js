@@ -1,5 +1,18 @@
+/**
+ * MovieDetails Component
+ *
+ * A component that displays detailed information about a movie.
+ * It includes the movie title, overview, release date, rank, vote count, and language.
+ */
 import MovieInfoRow from "./MovieInfoRow";
 
+/**
+ * MovieDetails Component
+ *
+ * @param {Object} props - The component props.
+ * @param {Object} props.movie - The movie object containing details.
+ * @returns {JSX.Element} The rendered component.
+ */
 function MovieDetails({ movie }) {
     return (
         <div className="card-body">

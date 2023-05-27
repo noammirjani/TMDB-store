@@ -1,5 +1,13 @@
 import '../../styles/home.css'
 
+/**
+ * ColoredWelcomeIntro Component
+ *
+ * A component for displaying the colored welcome intro.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered component.
+ */
 const ColoredWelcomeIntro = () => {
 
     return (

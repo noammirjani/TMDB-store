@@ -1,3 +1,9 @@
+/**
+ * MovieCard Component
+ *
+ * A component that represents a movie card in the movie grid.
+ * It displays the movie image, title, price, and provides options to add to cart and view details.
+ */
 import React, {useState} from "react";
 import {Col} from 'react-bootstrap';
 import '../../styles/MovieGrid.css'
@@ -5,6 +11,14 @@ import CardExtend from "./CardExtend";
 import SvgIcon from "../Utils/SvgIcon";
 import { useCartDispatch } from '../Context/CartProvider';
 
+
+/**
+ * MovieCard Component
+ *
+ * @param {Object} props - The component props.
+ * @param {Object} props.movie - The movie object containing details.
+ * @returns {JSX.Element} The rendered component.
+ */
 function MovieCard ({movie}) {
 
     const [showModal, setShowModal] = useState(false);

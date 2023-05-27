@@ -1,6 +1,13 @@
 import React from 'react';
 import '../../styles/SuccessAnimation.css';
 
+/**
+ * SuccessAnimation Component
+ *
+ * A component that renders a success animation with a checkmark icon.
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
 function SuccessAnimation() {
     return (
         <div className="d-flex justify-content-center align-items-center">

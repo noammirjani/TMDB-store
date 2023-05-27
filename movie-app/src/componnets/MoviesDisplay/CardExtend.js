@@ -1,8 +1,25 @@
+/**
+ * CardExtend Component
+ *
+ * A component that represents an extended card view for a movie.
+ * It displays the movie image, details, and provides options to add to cart and close the modal.
+ */
 import { Modal, Button } from 'react-bootstrap';
 import SvgIcon from "../Utils/SvgIcon";
 import MovieDetails from "./MovieDetails";
 import { useCartDispatch } from '../Context/CartProvider';
 
+
+/**
+ * CardExtend Component
+ *
+ * @param {Object} props - The component props.
+ * @param {string} props.movieImage - The URL of the movie image.
+ * @param {Object} props.movie - The movie object containing details.
+ * @param {boolean} props.showModal - Flag to control the visibility of the modal.
+ * @param {Function} props.onClose - The function to handle modal close event.
+ * @returns {JSX.Element} The rendered component.
+ */
 function CardExtend({ movieImage, movie, showModal, onClose }) {
     const dispatch = useCartDispatch();
 

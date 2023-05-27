@@ -2,7 +2,16 @@ import React from 'react';
 import '../../styles/Loading.css';
 import {Container} from "react-bootstrap";
 
-function Loading({props}) {
+
+/**
+ * Loading Component
+ *
+ * A component for displaying a loading animation.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered component.
+ */
+function Loading() {
     return (
         <div className="page mt-5">
             <Container className=" container-loading">

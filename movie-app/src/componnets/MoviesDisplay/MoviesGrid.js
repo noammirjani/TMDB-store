@@ -1,3 +1,9 @@
+/**
+ * MoviesGrid Component
+ *
+ * A component that displays a grid of movie cards.
+ * It fetches movie data from an API and dynamically loads more movies when scrolling to the bottom of the page.
+ */
 import { Container, Row } from "react-bootstrap";
 import { useState, useEffect } from 'react';
 import MovieCard from './MovieCard';
@@ -5,20 +11,31 @@ import useApi from '../Utils/UseApi';
 import UserMessage from "./UserMessage";
 import Loading from "../Utils/Loading";
 
+
+/**
+ * MoviesGrid Component
+ *
+ * @param {Object} props - The component props.
+ * @param {string} props.url - The URL to fetch movie data from.
+ * @returns {JSX.Element} The rendered component.
+ */
 function MoviesGrid(props) {
     const [{ data, isLoading, isError, page}, doFetch, fetchPage] = useApi("", []);
     const [cards, setCards] = useState([]);
     const [userInfo, setUserInfo] = useState("");
 
+    // hook for scrolling
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => { window.removeEventListener('scroll', handleScroll); };
     }, [isLoading]);
 
+    //hook for url changing
     useEffect(() => {
         doFetch(props.url);
     }, [doFetch, props.url]);
 
+    //hook for data change
     useEffect(() => {
         if(data.length === 0){
             setCards([]);
@@ -32,6 +49,10 @@ function MoviesGrid(props) {
         }
     }, [data]);
 
+
+    /**
+     * Handle scroll event to trigger fetching more movies when scrolled to the bottom.
+     */
     function handleScroll() {
         const isAtBottom =  window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
 
@@ -41,6 +62,9 @@ function MoviesGrid(props) {
         }
     }
 
+    /**
+     * Build movie cards from fetched movie data.
+     */
     function buildMovieCard() {
         if (data.length === 0) {
             setCards([]);

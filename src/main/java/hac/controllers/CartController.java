@@ -15,12 +15,22 @@ public class CartController {
     @Qualifier("movieListBean")
     private MovieList movieList;
 
-
+    /**
+     * Retrieves the content of the cart.
+     *
+     * @return ResponseEntity containing the list of movies in the cart.
+     */
     @GetMapping("/getCart")
     public ResponseEntity<ArrayList<Movie>> getCartContent(){
         return ResponseEntity.ok(movieList.getMovies());
     }
 
+    /**
+     * Adds a movie to the cart.
+     *
+     * @param movie The movie to be added to the cart.
+     * @return ResponseEntity indicating the status of the operation.
+     */
     @PostMapping("/addItem")
     public ResponseEntity<String> addItemToCartContent(@RequestBody Movie movie) {
         boolean state =  movieList.addMovie(movie);
@@ -28,7 +38,12 @@ public class CartController {
         return ResponseEntity.ok(text);
     }
 
-
+    /**
+     * Removes a movie from the cart.
+     *
+     * @param movie The movie to be removed from the cart.
+     * @return ResponseEntity indicating the status of the operation.
+     */
     @DeleteMapping("/removeItem")
     public ResponseEntity<String> removeItemFromCartContent(@RequestBody Movie movie) {
         boolean state = movieList.removeMovie(movie);
@@ -36,30 +51,36 @@ public class CartController {
         return ResponseEntity.ok(text);
     }
 
-
-
+    /**
+     * Clears the content of the cart.
+     *
+     * @return ResponseEntity indicating the status of the operation.
+     */
     @DeleteMapping("/clearCart")
     public ResponseEntity<String> clearCartContent() {
         movieList.clear();
         return ResponseEntity.ok("ok! cart is empty");
     }
-
 }
 
 /*
  *
  *   in postman:
+ *
  *   http://localhost:8080/api/getCart      GET
  *   http://localhost:8080/api/clearCart    POST WITH BODY&HEADER
  *   http://localhost:8080/api/addItem      POST WITH BODY&HEADER
  *   http://localhost:8080/api/removeItem   POST WITH BODY&HEADER
+ *
+ * example of body:
  *   {
  *     "movieImage": "HI",
  *     "movieTitle": "HELLO",
  *     "movieReleaseDate": "2023-05-24",
  *     "moviePrice": 3.99
+ *     "movieID: 234
  * }
  *
- *
+ * headers
  * Content-Type, application/json
  */

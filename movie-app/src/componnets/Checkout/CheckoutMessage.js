@@ -1,9 +1,20 @@
+/**
+ * CheckoutMessage Component
+ *
+ * A component that displays a checkout message and options for the user.
+ * It shows a thank-you message, a brief description, and a link to go shopping if the cart is empty.
+ */
 import React from "react";
 import {Container} from "react-bootstrap";
 import {useCart} from "../Context/CartProvider";
 import {Link} from "react-router-dom";
 
 
+/**
+ * CheckoutMessage Component
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
 function CheckoutMessage() {
     const cart = useCart();
     const isCartEmpty = cart.length === 0;
@@ -12,6 +23,16 @@ function CheckoutMessage() {
     const text = "Discover the world of movies at MovieTime. We offer a wide range of movies in various genres. Whether\n" +
                   "you're a casual moviegoer or a passionate film enthusiast, we have something for everyone."
 
+    /**
+     * Render link button
+     *
+     * Renders a link button to navigate to the given route.
+     *
+     * @param {string} link - The route path to navigate to.
+     * @param {string} color - The color variant of the button.
+     * @param {string} text - The text content of the button.
+     * @returns {JSX.Element} The rendered link button.
+     */
     const linkBtn = (link, color, text) => (
         <Link to={`/${link}`} className={`btn btn-${color} px-4 gap-3`}>
             {text}

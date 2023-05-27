@@ -1,3 +1,9 @@
+/**
+ * CheckoutUserRegister Component
+ *
+ * A component that handles the user registration and purchase in the checkout section.
+ * It includes a form for collecting user information and options to continue shopping or complete the purchase.
+ */
 import React, { useState } from "react";
 import { Container, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -6,11 +12,26 @@ import ToastMsg from "../Utils/ToastMsg";
 import { fetchRequest } from "../Utils/ServerFetchRequest";
 import {useCartDispatch} from "../Context/CartProvider";
 
+/**
+ * CheckoutUserRegister Component
+ *
+ * @param {Object} props - The component props.
+ * @param {number} props.payment - The total payment amount.
+ * @returns {JSX.Element} The rendered component.
+ */
 function CheckoutUserRegister({ payment }) {
     const dispatch = useCartDispatch();
     const [showToast, setShowToast] = useState(false);
     const [formData, setFormData] = useState({firstName: "", lastName: "", email: "",});
 
+    /**
+     * Handle form submission
+     *
+     * Handles the form submission and sends the user information and payment details to the server.
+     * Updates the cart and shows a success toast message.
+     *
+     * @param {Event} event - The form submit event.
+     */
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(formData.firstName, formData.lastName, formData.email, payment);

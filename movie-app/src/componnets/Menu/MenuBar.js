@@ -1,9 +1,21 @@
+/**
+ * MenuBar Component
+ *
+ * A component that represents the menu bar in the application.
+ * It includes a logo, navigation links, and a cart button.
+ */
 import {Link, Outlet} from 'react-router-dom';
 import '../../styles/MenuBar.css'
 import React from "react";
 import MenuButton from "./MenuButton";
 import MenuCartButton from "./MenuCartButton";
 
+
+/**
+ * MenuBar Component
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
 function MenuBar() {
 
     return (

@@ -8,6 +8,11 @@ import org.springframework.web.context.annotation.SessionScope;
 @Configuration
 public class BeansConfigurations {
 
+    /**
+     * Creates a new instance of the MovieList bean.
+     *
+     * @return The MovieList bean.
+     */
     @Bean
     @SessionScope
     public MovieList movieListBean () {

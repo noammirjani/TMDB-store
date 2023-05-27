@@ -1,6 +1,15 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 
+/**
+ * useApi Hook
+ *
+ * A custom hook for making API requests.
+ *
+ * @param {string} initialUrl - The initial URL for the API request.
+ * @param {any} initialData - The initial data for the API response.
+ * @returns {Array} An array containing the API response data, loading state, error state, and page state.
+ */
 const useApi = (initialUrl, initialData) => {
     const apiKey ="eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNzQ2ZGRkMDVlYjNiMjAxOGIwYTZjMzhhN2RlZjk1ZCIsInN1YiI6IjY0NThlMjdjMWI3MGFlMDE0NWVkNzdlNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.w46933noO_o7Ch2z1y0ogBxrkuC5WlS14o11ltrZ2sY"
     const headers = {
@@ -15,6 +24,12 @@ const useApi = (initialUrl, initialData) => {
     const [page, setPage] = useState(1);
 
     const defaultFilters=`&page=${page}&include_adult=false&language=en-US`
+
+    /**
+     * fetchData Function
+     *
+     * Fetches data from the API using the current URL and updates the data state.
+     */
     const fetchData = async () => {
         if(url === "") {
             setData([])

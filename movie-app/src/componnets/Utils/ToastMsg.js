@@ -2,6 +2,17 @@ import React, { useEffect } from 'react';
 import { ToastContainer, Toast } from 'react-bootstrap';
 import SuccessAnimation from "./SuccessAnimation";
 
+/**
+ * ToastMsg Component
+ *
+ * A component that displays a toast message with a success animation.
+ *
+ * @param {Object} props - The component props.
+ * @param {boolean} props.mode - The mode to control the visibility of the toast message.
+ * @param {function} props.setMode - The function to toggle the visibility of the toast message.
+ * @param {string} props.text - The text content of the toast message.
+ * @returns {JSX.Element} The rendered component.
+ */
 function ToastMsg({ mode, setMode, text }) {
     const toggleShowToast = () => setMode(false);
 

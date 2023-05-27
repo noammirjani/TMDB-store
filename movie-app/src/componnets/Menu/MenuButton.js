@@ -1,8 +1,20 @@
+/**
+ * MenuButton Component
+ *
+ * A component that represents a menu button in the menu bar.
+ * It includes a link to navigate to the corresponding page and an icon.
+ */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SvgIcon from "../Utils/SvgIcon";
 
-
+/**
+ * MenuButton Component
+ *
+ * @param {Object} props - The component props.
+ * @param {string} props.optionName - The name of the menu option.
+ * @returns {JSX.Element} The rendered component.
+ */
 function MenuButton({ optionName }) {
 
     const btnClasses = "nav-link text-white border rounded-pill hover-opacity text-capitalize";

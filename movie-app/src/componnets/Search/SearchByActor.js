@@ -1,14 +1,32 @@
+/**
+ * SearchByActor Component
+ *
+ * A component for searching movies by actor.
+ */
 import { useEffect, useState } from "react";
 import useApi from "../Utils/UseApi";
 import SearchByText from "./SearchByText";
 import UserMessage from "../MoviesDisplay/UserMessage";
 
+/**
+ * SearchByActor Component
+ *
+ * @param {Object} props - The component props.
+ * @param {function} props.setUrl - The function to set the URL for the movie search.
+ * @param {function} props.setPrevSearchInput - The function to set the previous search input.
+ * @returns {JSX.Element} The rendered component.
+ */
 function SearchByActor({ setUrl, setPrevSearchInput  }) {
     const [filterValue, setFilterValue] = useState("");
     const [{ data}, doFetch] = useApi("", []);
     const [isValid, setIsValid] = useState(true);
     const [userInfo, setUserInfo] = useState("");
 
+    /**
+     * Retrieves the most popular actor from the search results.
+     *
+     * @returns {Object|null} The most popular actor.
+     */
     const mostPopular = () => {
         if (data.length === 0) return null;
 
@@ -17,6 +35,8 @@ function SearchByActor({ setUrl, setPrevSearchInput  }) {
         });
     };
 
+
+    //hook for data change
     useEffect(() => {
         if(data.length !== 0 ){
             if (data.total_results !== 0) {
@@ -32,6 +52,10 @@ function SearchByActor({ setUrl, setPrevSearchInput  }) {
         }
     }, [data]);
 
+
+    /**
+     * Handles the search button click event.
+     */
     function handleClick() {
         if(!filterValue.trim()) return;
 

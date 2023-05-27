@@ -21,15 +21,18 @@ public class PurchaseController {
         this.purchaseRepository = purchaseRepository;
     }
 
-
+    /**
+     * Creates a new purchase.
+     *
+     * @param purchase The purchase object to be created.
+     * @param request  The HTTP servlet request.
+     * @return ResponseEntity containing the created purchase and a status code.
+     */
     @PostMapping
     public ResponseEntity<Purchase> createPurchase(@Validated @RequestBody Purchase purchase, HttpServletRequest request) {
         Purchase createdPurchase = purchaseRepository.save(purchase);
         request.getSession().invalidate(); //destroy the session
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPurchase);
     }
-
-
-
 
 }

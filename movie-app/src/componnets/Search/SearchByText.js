@@ -2,8 +2,24 @@ import '../../styles/Search.css';
 import { Row } from "react-bootstrap";
 import SvgIcon from "../Utils/SvgIcon";
 
-
+/**
+ * SearchByText Component
+ *
+ * A component for searching by text input.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {function} props.onChange - The function to handle input change.
+ * @param {function} props.onClick - The function to handle button click.
+ * @param {string} props.placeholder - The input placeholder text.
+ * @returns {JSX.Element} The rendered component.
+ */
 function SearchByText({ onChange, onClick, placeholder }) {
+
+    /**
+     * Handles the input change event.
+     * @param {Object} event - The input change event.
+     */
     function handleChange(event) {
         const value = event.target.value.trim();
         onChange(value);

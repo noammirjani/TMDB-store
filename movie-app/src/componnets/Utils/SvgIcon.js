@@ -1,7 +1,23 @@
 import React from "react";
 
+/**
+ * SvgIcon Component
+ *
+ * A component that renders an SVG icon based on the provided icon name.
+ *
+ * @param {Object} props - The component props.
+ * @param {string} props.name - The name of the icon.
+ * @param {number} props.size - The size of the icon (width and height).
+ * @returns {JSX.Element} The rendered component.
+ */
 function SvgIcon({name, size}){
 
+
+    /**
+     * Gets the SVG path data for the specified icon name.
+     *
+     * @returns {string} The SVG path data.
+     */
     function getIcon(){
         switch (name){
             case "search":

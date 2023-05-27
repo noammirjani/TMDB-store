@@ -1,8 +1,19 @@
+/**
+ * HomePage Component
+ *
+ * A component that displays the home page with a welcome message and a grid of popular movies.
+ */
 import MoviesGrid from "../MoviesDisplay/MoviesGrid";
 import { Container } from 'react-bootstrap';
 import TypingIntro from "../Utils/TypingIntro";
 import ColoredWelcomeIntro from "../Utils/ColoredWelcomeIntro";
 
+
+/**
+ * HomePage Component
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
 const HomePage = () => {
 
     return (
