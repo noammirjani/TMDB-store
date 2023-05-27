@@ -1,10 +1,12 @@
 package hac.controllers;
+
 import hac.beans.Movie;
 import hac.beans.MovieList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 
 @RestController
@@ -21,8 +23,10 @@ public class CartController {
      * @return ResponseEntity containing the list of movies in the cart.
      */
     @GetMapping("/getCart")
-    public ResponseEntity<ArrayList<Movie>> getCartContent(){
-        return ResponseEntity.ok(movieList.getMovies());
+    public ResponseEntity<ArrayList<Movie>> getCartContent() {
+        synchronized (movieList) {
+            return ResponseEntity.ok(movieList.getMovies());
+        }
     }
 
     /**
@@ -33,9 +37,11 @@ public class CartController {
      */
     @PostMapping("/addItem")
     public ResponseEntity<String> addItemToCartContent(@RequestBody Movie movie) {
-        boolean state =  movieList.addMovie(movie);
-        String text = state ? "Ok! added to cart" : "The movie is already in cart";
-        return ResponseEntity.ok(text);
+        synchronized (movieList) {
+            boolean state = movieList.addMovie(movie);
+            String text = state ? "Ok! added to cart" : "The movie is already in cart";
+            return ResponseEntity.ok(text);
+        }
     }
 
     /**
@@ -46,9 +52,11 @@ public class CartController {
      */
     @DeleteMapping("/removeItem")
     public ResponseEntity<String> removeItemFromCartContent(@RequestBody Movie movie) {
-        boolean state = movieList.removeMovie(movie);
-        String text = state ? "Ok! The movie has been removed" : "The movie was not found in the cart";
-        return ResponseEntity.ok(text);
+        synchronized (movieList) {
+            boolean state = movieList.removeMovie(movie);
+            String text = state ? "Ok! The movie has been removed" : "The movie was not found in the cart";
+            return ResponseEntity.ok(text);
+        }
     }
 
     /**
@@ -58,10 +66,13 @@ public class CartController {
      */
     @DeleteMapping("/clearCart")
     public ResponseEntity<String> clearCartContent() {
-        movieList.clear();
-        return ResponseEntity.ok("ok! cart is empty");
+        synchronized (movieList) {
+            movieList.clear();
+            return ResponseEntity.ok("ok! cart is empty");
+        }
     }
 }
+
 
 /*
  *
