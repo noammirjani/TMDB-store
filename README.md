@@ -1,9 +1,13 @@
-# Welcome to Movie-Time!
-Movie Time is a feature-rich web application designed to enhance your movie exploration experience. With an array of advanced features and a seamless user interface, Movie Time allows you to discover trending movies, explore popular titles, and search for specific movies based on various criteria. Whether you're a movie enthusiast or simply looking for your next favorite film, Movie Time has got you covered.
+# 🍿🎬🎥 Welcome to Movie-Time! 🍿🎬🎥
 
 ###  Authors
 * Name: Ariel Amon     Email: arielam@edu.hac.ac.il  208244038
 * Name: Noam Mirjani  Email: noammir@edu.hac.ac.il 315216515
+
+
+![App Screenshot](movie-app/public/assets/logo.png)
+
+Movie Time is a feature-rich web application designed to enhance your movie exploration experience. With an array of advanced features and a seamless user interface, Movie Time allows you to discover trending movies, explore popular titles, and search for specific movies based on various criteria. Whether you're a movie enthusiast or simply looking for your next favorite film, Movie Time has got you covered.
 
 
 ## Installation
@@ -82,4 +86,5 @@ Movie Time leverages a cutting-edge tech stack to deliver a robust and performan
 ## Configuration
 
 -   Movie API: The application requires an API key for accessing movie data. Replace the placeholder API key in the `useApi` hook with your own API key.
+
 

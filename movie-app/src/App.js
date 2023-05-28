@@ -22,8 +22,6 @@ const App = () => {
                         <Route index  element={<Home />}/>
                         <Route  path="/search"  element={<Search />}/>
                         <Route  path="/checkout"  element={<Checkout />}/>
-                        {/*<Route path="/otherpage" element={<OtherPage/>}/>*/}
-                        {/*<Route path="/params/:id" element={<PageWithData/>}/>*/}
                     </Route>
                     <Route path={"*"} element={<NotFound/>}/>
                 </Routes>
