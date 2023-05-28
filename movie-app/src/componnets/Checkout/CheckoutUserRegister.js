@@ -20,10 +20,13 @@ import {useCartDispatch} from "../Context/CartProvider";
  * @returns {JSX.Element} The rendered component.
  */
 function CheckoutUserRegister({ payment }) {
-    const dispatch = useCartDispatch();
+    const {getCart} = useCartDispatch();
     const [showToast, setShowToast] = useState(false);
     const [formData, setFormData] = useState({firstName: "", lastName: "", email: "",});
-    const [error, setError] = useState(false)
+    const [isError, setIsError] = useState(false)
+
+    const msgTextSuccess = "BOUGHT SUCCESSFULLY, ENJOY!"
+    const errMsg = "SERVER ERROR, BUY FAILED - TRY AGAIN LATER"
 
     /**
      * Handle form submission
@@ -33,7 +36,7 @@ function CheckoutUserRegister({ payment }) {
      *
      * @param {Event} event - The form submit event.
      */
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
         console.log(formData.firstName, formData.lastName, formData.email, payment);
         let data = {
@@ -42,13 +45,13 @@ function CheckoutUserRegister({ payment }) {
             email: formData.email.toLowerCase().trim(),
             payment: payment,
         };
-        await fetchRequest("POST", { url: "/api/purchase", data: data })
-            .then(() => setError(false))
-            .catch(() => setError(true))
-        setShowToast(true);
-        setTimeout(() => {
-            dispatch({ type: 'update', dispatch:dispatch});
-        }, 4000);
+        fetchRequest("POST", { url: "/api/purchase", payload: data })
+            .then(() => {
+                setIsError(false);
+                setTimeout(() => {getCart();}, 4000);
+            })
+            .catch(() => setIsError(true))
+            .finally(() => {setShowToast(true);});
     };
 
     return (
@@ -64,18 +67,10 @@ function CheckoutUserRegister({ payment }) {
                     </button>
                 </Container>
             </Form>
-            {!error && <ToastMsg
-                text="BOUGHT SUCCESSFULLY, ENJOY!"
-                setMode={setShowToast}
-                mode={showToast}
-                error={false}
-            />}
-            {error &&  <ToastMsg
-                text="ERROR! THERE IS PROBLEM WITH THE SERVER"
-                setMode={setShowToast}
-                mode={showToast}
-                error={true}
-            />}
+            <ToastMsg text={isError ? errMsg : msgTextSuccess}
+                      setMode={setShowToast} mode={showToast}
+                      error={isError}
+            />
         </>
     );
 }

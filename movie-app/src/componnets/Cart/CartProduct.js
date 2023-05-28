@@ -23,7 +23,7 @@ function CartProduct({ movie }) {
         movie.movieImage !== null
             ? imageUrlPrefix + movie.movieImage
             : "/assets/unknown.png";
-    const dispatch = useCartDispatch();
+    const { removeFromCart } = useCartDispatch();
 
     /**
      * Render remove movie button
@@ -34,11 +34,8 @@ function CartProduct({ movie }) {
      */
     const removeMovieBtn = () => {
         return (
-            <Button
-                variant="primary"
-                onClick={() => {
-                    dispatch({ type: "removeItem", movie: movie, dispatch: dispatch });
-                }}
+            <Button variant="primary"
+                onClick={()=>{removeFromCart(movie)}}
             >
                 <SvgIcon name={"remove"} size={16} />
             </Button>
@@ -49,10 +46,9 @@ function CartProduct({ movie }) {
         <Card className="card mb-3" style={{ maxWidth: "540px" }}>
             <Row className="row g-0 align-items-center">
                 <Col className="col-md-4">
-                    <img
-                        src={movieImage}
-                        className="img-fluid rounded-start h-100"
-                        alt="Image"
+                    <img src={movieImage}
+                        className="img-fluid rounded-start "
+                        alt="card-data"
                     />
                 </Col>
                 <Col className="col-md-8">

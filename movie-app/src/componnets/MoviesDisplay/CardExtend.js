@@ -21,7 +21,7 @@ import { useCartDispatch } from '../Context/CartProvider';
  * @returns {JSX.Element} The rendered component.
  */
 function CardExtend({ movieImage, movie, showModal, onClose }) {
-    const dispatch = useCartDispatch();
+    const { addToCart } = useCartDispatch();
 
     return (
         <Modal contentClassName="bg-dark" size="xl" show={showModal} onHide={() => onClose(false)} centered>
@@ -39,13 +39,7 @@ function CardExtend({ movieImage, movie, showModal, onClose }) {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="success"
-                        onClick={()=>{
-                            dispatch({
-                                type: 'addItem',
-                                movie : movie,
-                                dispatch: dispatch
-                            });
-                        }}>
+                        onClick={()=>{addToCart(movie)}}>
                     <SvgIcon name="addToCart" size={25}/>
                 </Button>
                 <Button variant="danger" onClick={() => onClose(false)}> Close</Button>

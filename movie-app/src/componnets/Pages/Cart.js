@@ -19,7 +19,7 @@ import CartContent from "../Cart/CartContent";
 function Cart() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const cart = useCart();
-    const dispatch = useCartDispatch();
+    const {clearCart} = useCartDispatch();
 
 
     /**
@@ -53,7 +53,7 @@ function Cart() {
      */
     const emptyCartButton = () => {
         return (
-            <Button variant="danger" onClick={() => { dispatch({ type: 'clear', dispatch:dispatch}); }}>
+            <Button variant="danger" onClick={() => { clearCart() }}>
                 Empty Cart
             </Button>
         );

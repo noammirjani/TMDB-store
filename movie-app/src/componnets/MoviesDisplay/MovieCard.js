@@ -25,7 +25,7 @@ function MovieCard ({movie}) {
     const price = 3.99;
     const imageUrlPrefix = "https://image.tmdb.org/t/p/w500";
     let   movieImage = movie.poster_path !== null ? imageUrlPrefix + movie.poster_path : '/assets/unknowen.png';
-    const dispatch = useCartDispatch();
+    const { addToCart } = useCartDispatch();
 
 
     return(
@@ -39,14 +39,7 @@ function MovieCard ({movie}) {
                         <div className="d-flex justify-content-between align-items-center" >
                             <div className="btn-group">
                                 <button type="button" className="btn btn-success"
-                                onClick={()=>{
-                                    dispatch({
-                                        type: 'addItem',
-                                        movie : movie,
-                                        dispatch: dispatch
-                                    });
-                                }}
-                                >
+                                onClick={()=>{addToCart(movie)}}>
                                     <SvgIcon name={"addToCart"} size={16}/>
                                 </button>
                                 <button type="button" className="btn btn-primary" onClick={() => setShowModal(true)}>
