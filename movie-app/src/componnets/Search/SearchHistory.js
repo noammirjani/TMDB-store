@@ -24,7 +24,8 @@ function SearchHistory({modal, setModal, setUrl, data}) {
      */
     useEffect(() => {
         const addToSearch = () => {
-            if (data.searchValue !== "" && data.filterUrl !== "" && data.selectedFilterType !== "") {
+            if (data.searchValue !== "" && data.filterUrl !== "" &&
+                (data.selectedFilterType === "movie name" || data.selectedFilterType === "actor name")) {
                 historyDispatch({type: 'added', searchData:data});
             }
         }
