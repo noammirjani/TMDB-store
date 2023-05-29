@@ -1,85 +1,81 @@
-import React from 'react';
-import { Button, Container, Modal, Table } from 'react-bootstrap';
+import React, {useEffect} from 'react';
+import { Button, Modal } from 'react-bootstrap';
 import UserMessage from "../MoviesDisplay/UserMessage";
-
+import {useHistoryDispatch, useHistoryState} from "../Context/HistoryProvider";
+import SearchHistoryTable from "./SearchHistoryTable";
 
 /**
- * SearchHistory Component
+ * Component for displaying search history.
  *
- * A component for displaying the search history table.
- *
- * @component
- * @param {Object} props - The component props.
- * @param {Array} props.searchesData - The array of search data.
- * @param {function} props.handleReRunSearch - The function to handle re-running a search.
- * @param {function} props.handleRemoveRow - The function to handle removing a search row.
- * @param {function} props.handleDeleteAll - The function to handle removing all search rows.
- * @param {boolean} props.setOpenHistoryTable - The function to toggle the visibility of the search history table.
- * @returns {JSX.Element} The rendered component.
+ * @param {boolean} modal - Indicates whether the modal is visible or not.
+ * @param {function} setModal - Function to update the visibility of the modal.
+ * @param {function} setUrl - Function to update the URL.
+ * @param {Array} data - Data containing search information.
+ * @returns {JSX.Element} SearchHistory component.
  */
-function SearchHistory({ searchesData, handleReRunSearch, handleRemoveRow, handleDeleteAll, setOpenHistoryTable }) {
+function SearchHistory({modal, setModal, setUrl, data}) {
+    const historyDispatch = useHistoryDispatch();
+    const history = useHistoryState();
 
-    const titles = ['Your Search', 'Search', 'Remove'];
     const userInfo = "There are no previous searches";
 
-    // build the row of the titles
-    const titleRows = titles.map((title, index) => (
-        <th key={index} className="text-nowrap">
-            {title}
-        </th>
-    ));
-
-
-    // build the content of the table
-    const rows = searchesData.map((data, index) => {
-        const cells = titles.map((title, cellIndex) => {
-            if (title === 'Search') {
-                return (
-                    <td key={title}>
-                        <Button variant="success" onClick={() => handleReRunSearch(index)}>
-                            Search
-                        </Button>
-                    </td>
-                );
-            } else if (title === 'Remove') {
-                return (
-                    <td key={title}>
-                        <Button variant="danger" onClick={() => handleRemoveRow(index)}>
-                            Remove
-                        </Button>
-                    </td>
-                );
+    /**
+     * Adds the search to the history when all required data is present.
+     */
+    useEffect(() => {
+        const addToSearch = () => {
+            if (data.searchValue !== "" && data.filterUrl !== "" && data.selectedFilterType !== "") {
+                historyDispatch({type: 'added', searchData:data});
             }
-            return <td key={cellIndex}>{data.value}</td>;
-        });
-        return <tr key={`${index}`} className="fw-bolder fs-6">{cells}</tr>;
-    });
+        }
+        addToSearch()
 
+    }, [setUrl, data, historyDispatch]);
+
+    /**
+     * Handles re-running a search by updating the URL.
+     *
+     * @param {number} index - Index of the search history item to re-run.
+     */
+    const handleReRunSearch = (index) => {
+        setModal(false);
+        setUrl(history[index].url);
+    }
+
+    /**
+     * Removes a row from the search history.
+     *
+     * @param {number} removeIndex - Index of the search history item to remove.
+     */
+    const handleRemoveRow = (removeIndex) => {
+        historyDispatch({ type: 'remove', removeIndex });
+    }
+
+    /**
+     * Handles deleting all search history items.
+     */
+    const handleDeleteAll = ()  => {
+        historyDispatch({type: 'clear'});
+    }
 
     return (
-        <Modal contentClassName="bg-dark" size="xl" show={true} centered>
+        <Modal contentClassName="bg-dark" size="xl" show={modal} centered>
             <Modal.Body>
-                {searchesData.length > 0 &&
-                    <Container>
-                        <Table striped bordered hover variant="dark" className={`text-center`}>
-                            <thead>
-                            <tr>{titleRows}</tr>
-                            </thead>
-                            <tbody>{rows}</tbody>
-                        </Table>
-                    </Container>}
-                {searchesData.length === 0 && <UserMessage userInfo={userInfo} isAlert={false} />}
+                {history.length > 0 && (
+                    <SearchHistoryTable history={history}
+                                        handleReRunSearch={handleReRunSearch}
+                                        handleRemoveRow={handleRemoveRow}
+                    />
+                )}
+                {history.length === 0 && <UserMessage userInfo={userInfo} isAlert={false} />}
             </Modal.Body>
             <Modal.Footer>
-                <div>{searchesData.length > 0 &&
-                    <Button variant="danger" onClick={handleDeleteAll}>
-                        Remove All Searches
-                    </Button>}
+                <div>
+                    {history.length > 0 && (
+                        <Button variant="danger" onClick={handleDeleteAll}>Remove All Searches</Button>)}
                 </div>
                 <div>
-                    <Button variant="secondary" onClick={() => setOpenHistoryTable(false)}>
-                        Close
-                    </Button>
+                    <Button variant="secondary" onClick={() => setModal(false)}>Close</Button>
                 </div>
             </Modal.Footer>
         </Modal>
@@ -87,3 +83,4 @@ function SearchHistory({ searchesData, handleReRunSearch, handleRemoveRow, handl
 }
 
 export default SearchHistory;
+

@@ -9,23 +9,26 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import NotFound from "./componnets/Pages/NotFound";
 import { CartProvider } from "./componnets/Context/CartProvider";
+import {HistoryProvider} from "./componnets/Context/HistoryProvider";
 
 const App = () => {
 
     return (
         <>
         <CartProvider >
-            <BrowserRouter>
-                <ScrollToTop smooth />
-                <Routes>
-                    <Route path="/" element={<MenuBar />}>
-                        <Route index  element={<Home />}/>
-                        <Route  path="/search"  element={<Search />}/>
-                        <Route  path="/checkout"  element={<Checkout />}/>
-                    </Route>
-                    <Route path={"*"} element={<NotFound/>}/>
-                </Routes>
-            </BrowserRouter>
+            <HistoryProvider>
+                <BrowserRouter>
+                    <ScrollToTop smooth />
+                    <Routes>
+                        <Route path="/" element={<MenuBar />}>
+                            <Route index  element={<Home />}/>
+                            <Route  path="/search"  element={<Search />}/>
+                            <Route  path="/checkout"  element={<Checkout />}/>
+                        </Route>
+                        <Route path={"*"} element={<NotFound/>}/>
+                    </Routes>
+                </BrowserRouter>
+            </HistoryProvider>
         </CartProvider>
         </>
     );

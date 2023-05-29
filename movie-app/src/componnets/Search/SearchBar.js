@@ -7,19 +7,17 @@ import React from 'react';
 import { Container, Row, Button } from 'react-bootstrap';
 import SearchFilterButton from "./SearchFilterButton";
 
-
 /**
  * SearchBar Component
  *
  * A component for displaying the search bar and filter buttons.
  *
- * @component
- * @param {Object} props - The component props.
+ * @param {Object} props - Component props.
  * @param {string} props.selectedFilterType - The currently selected filter type.
- * @param {function} props.setSelectedFilterType - The function to set the selected filter type.
- * @param {boolean} props.setOpenHistoryTable - The function to toggle the visibility of the search history table.
- * @param {boolean} props.openHistoryTable - The current visibility state of the search history table.
- * @returns {JSX.Element} The rendered component.
+ * @param {function} props.setSelectedFilterType - Function to set the selected filter type.
+ * @param {boolean} props.openHistoryTable - Flag indicating whether the history table is open or not.
+ * @param {function} props.setOpenHistoryTable - Function to set the open state of the history table.
+ * @returns {JSX.Element} SearchBar component.
  */
 function SearchBar(props) {
 
@@ -28,7 +26,7 @@ function SearchBar(props) {
      */
     function handleHistoryClick (){
         props.setSelectedFilterType("");
-        props.setOpenHistoryTable(!props.openHistoryTable)
+        props.setOpenHistoryTable(true)
     }
 
     return (
