@@ -14,21 +14,25 @@ import SuccessAnimation from "./SuccessAnimation";
  * @returns {JSX.Element} The rendered component.
  */
 function ToastMsg({ mode, setMode, text, error}) {
-    const toggleShowToast = () => setMode(false);
+
     const color = error ? 'danger' : 'success';
 
     useEffect(() => {
-        if (mode) {
-            const timer = setTimeout(() => {
-                toggleShowToast();
-            }, 4000); // Adjust the duration (in milliseconds) as needed
-            return () => clearTimeout(timer);
+        const getTimer = () =>{
+            if (mode) {
+                const timer = setTimeout(() => {
+                    setMode(false);
+                }, 4000);
+                return () => clearTimeout(timer);
+            }
         }
-    }, [mode]);
+        getTimer()
+
+    }, [mode, setMode]);
 
     return (
-        <ToastContainer className="p-3 position-fixed bottom-0 end-0 text-black">
-            <Toast show={mode} onClose={toggleShowToast} >
+        <ToastContainer className="p-3 position-fixed bottom-0 end-0 text-black text-uppercase text-center">
+            <Toast show={mode} onClose={() => setMode(false)} >
                 <Toast.Header className={`bg-${color}`}>
                     <strong className="me-auto">Movie Time</strong>
                     <small> just now </small>

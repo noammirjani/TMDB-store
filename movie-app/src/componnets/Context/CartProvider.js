@@ -1,129 +1,104 @@
-import {createContext, useContext, useEffect, useReducer, useState} from 'react';
-import {fetchRequest} from "../Utils/ServerFetchRequest"
+import React, {createContext, useContext, useEffect, useReducer, useState} from 'react';
 import UserMessage from "../MoviesDisplay/UserMessage";
-
+import {fetchRequest} from "../Utils/ServerFetchRequest"
+import ToastMsg from "../Utils/ToastMsg";
 
 const CartContext = createContext(null);
 const CartDispatchContext = createContext(null);
 
-/**
- * CartProvider component manages the state and actions related to the cart.
- *
- * @param {object} children - The child components to be wrapped by the CartProvider.
- * @returns {JSX.Element} The CartProvider component.
- */
+// reducer to handle fetching data - returns the
+// fix object by the state of the fetch
+function cartReducer(state, action) {
+    switch (action.type) {
+        case 'FETCH_CART_SUCCESS':
+            // no error or loading, cart has new data
+            return { error: false, loading: false, cart: action.payload };
+        case 'FETCH_CART_FAILURE':
+            // set the error to the wanted message
+            return { ...state, loading: false, error: action.payload };
+        case 'UPDATING_CART':
+            // set the cart is not ready, still loading
+            return { ...state, loading: true };
+        default:
+            return state;
+    }
+}
+
 export function CartProvider({ children }) {
 
-    const [cart, dispatch] = useReducer(cartReducer, [])
-    const [error, setError] = useState('');
+    const errMsg = "Server Error! Please check the details at the top of the page";
+    const initialState = {cart: [], error: '', loading: true};
+    const [state, dispatch] = useReducer(cartReducer, initialState, initialState => initialState);
+    const [showToast, setShowToast] = useState(true);
 
-    useEffect(() => {
-        const initializeCart = async () => {
-            try {
-                const data = await fetchRequest('GET', { url: '/api/getCart' });
-                dispatch({ type: 'initialize', cart: data });
-            } catch (error) {
-                setError(error.message);
-            }
-        };
-        initializeCart();
+    //hook for init
+    useEffect( () => {
+        const fetch = async () => {
+            await update('GET', {url:'/api/getCart', payload:null});
+        }
+        fetch().then();
     }, []);
 
 
+    // fetches the data and base on the response sends to the dispatch to set the attributes
+    const update = async(method, payload) => {
+        try{
+            if(method !== 'GET') await fetchRequest(method, payload);
+            const updatedCart = await fetchRequest('GET', {url: 'api/getCart'});
+            dispatch({ type: 'FETCH_CART_SUCCESS', payload: updatedCart });
+        }
+        catch(error){
+            setShowToast(true)
+            dispatch({type:'FETCH_CART_FAILURE', payload: String(error)})
+        }
+    }
+
+    // build movie and enter to cart
+    const addToCart = async (movie) => {
+        const movieToAdd = {
+            movieId: movie.id,
+            movieImage: movie.poster_path,
+            movieTitle: movie.title,
+            movieReleaseDate: movie.release_date,
+            moviePrice: 3.99,
+        };
+        await update('POST', {url:'/api/addItem', payload: movieToAdd});
+    };
+
+    // gets movie to remove
+    const removeFromCart = async (MovieToDelete) => {
+        await update('DELETE', {url:'/api/removeItem', payload: MovieToDelete});
+    };
+
+    //clears cart
+    const clearCart = async () => {
+        await update('DELETE', {url:'/api/clearCart', payload:null});
+    };
+
+    // get the current cart
+    const getCart = async () => {
+        await update('GET', {url:'/api/getCart', payload:null});
+    }
+
+
     return (
-        <CartContext.Provider value={cart}>
-            {error && <UserMessage userInfo={error} isAlert={true} />}
-            <CartDispatchContext.Provider value={dispatch}>
+        <CartContext.Provider value={state.cart}>
+            {state.error && <UserMessage userInfo={state.error} isAlert={true}/>}
+            {state.error && <ToastMsg text={errMsg} setMode={setShowToast} mode={showToast} error={true}/>}
+            <CartDispatchContext.Provider value={{ addToCart, removeFromCart, clearCart, getCart }}>
                 {children}
             </CartDispatchContext.Provider>
         </CartContext.Provider>
     );
 }
 
-/**
- * Custom hook to access the cart state.
- *
- * @returns {Array} The cart state.
- */
+//context for cart
 export function useCart() {
     return useContext(CartContext);
 }
 
-/**
- * Custom hook to access the cart dispatch function.
- *
- * @returns {Function} The cart dispatch function.
- */
+
+//context for fetching,sets functions
 export function useCartDispatch() {
     return useContext(CartDispatchContext);
-}
-
-
-/**
- * Fetches the updated cart data from the server and dispatches the corresponding action.
- *
- * @param {string} request - The HTTP method for the request (POST or DELETE).
- * @param {string} url - The URL for the API request.
- * @param {object} body - The request body data.
- * @param {Function} setData - The dispatch function to update the cart state.
- */
-const fetchUpdate = (request,  url, body, setData) => {
-    const axiosData = {url: url, data:body}
-    fetchRequest(request, axiosData)
-        .then(() => {setData({type:'update', dispatch:setData})})
-        .catch((error) => {console.log(error.message, error.code);});
-}
-
-/**
- * Reducer function for managing the cart state.
- *
- * @param {Array} cart - The current cart state.
- * @param {object} action - The action object describing the state update.
- * @returns {Array} The updated cart state.
- * @throws {Error} If an unknown action type is encountered.
- */
-function cartReducer(cart, action) {
-
-    switch (action.type) {
-        case 'initialize': {
-            return action.cart;
-        }
-        case 'addItem': {
-            const movieToAdd = buildCartProduct(action.movie);
-            fetchUpdate('POST', '/api/addItem', movieToAdd, action.dispatch)
-            return cart;
-        }
-        case 'removeItem': {
-            fetchUpdate('DELETE','/api/removeItem', action.movie, action.dispatch)
-            return cart;
-        }
-        case 'clear': {
-            fetchUpdate('DELETE', '/api/clearCart', null, action.dispatch)
-            return cart;
-        }
-        case 'update':{
-            fetchRequest('GET', {url: '/api/getCart'})
-                .then((res) => {action.dispatch({ type: 'initialize', cart: res }); })
-                .catch((error) => { console.log(error.message, error.code); });
-            return cart;
-        }
-        default: {
-            throw Error('Unknown action: ' + action.type);
-        }
-    }
-}
-/**
- * Builds the cart product object from the movie data.
- *
- * @param {object} movie - The movie data.
- * @returns {object} The cart product object.
- */
-function buildCartProduct(movie){
-    return {
-        movieId: movie.id,
-        movieImage: movie.poster_path,
-        movieTitle: movie.title,
-        movieReleaseDate: movie.release_date,
-        moviePrice: 3.99
-    }
 }

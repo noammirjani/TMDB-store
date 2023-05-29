@@ -18,11 +18,11 @@ export const fetchRequest = async (method, httpRequest) => {
             const response = await axios.get(httpRequest.url, { headers });
             return response.data;
         } else if (method === 'POST') {
-            await axios.post(httpRequest.url, httpRequest.data, { headers });
+            await axios.post(httpRequest.url, httpRequest.payload, { headers });
         } else if (method === 'DELETE') {
-            await axios.delete(httpRequest.url, { headers, data: httpRequest.data });
+            await axios.delete(httpRequest.url, { headers, data: httpRequest.payload });
         }
     } catch (error) {
-        throw new Error(`Failed API request: \n${error.message} ${error.code}`);
+        throw new Error(`Failed API request: ${error.message} ${error.code}, TRY AGAIN!`);
     }
 };
