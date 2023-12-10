@@ -1,90 +1,129 @@
-# 🍿🎬🎥 Welcome to Movie-Time! 🍿🎬🎥
-
-###  Authors
-* Name: Ariel Amon     Email: arielam@edu.hac.ac.il  
-* Name: Noam Mirjani  Email: noammir@edu.hac.ac.il 
-
-
 ![App Screenshot](movie-app/public/assets/logo.png)
 
-Movie Time is a feature-rich web application designed to enhance your movie exploration experience. With an array of advanced features and a seamless user interface, Movie Time allows you to discover trending movies, explore popular titles, and search for specific movies based on various criteria. Whether you're a movie enthusiast or simply looking for your next favorite film, Movie Time has got you covered.
+# Movie-Time 
+
+## Table of Contents
+
+- [Overview](#Overview)
+- [Installation](#installation)
+- [Setup](#setup)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Acknowledgements](#acknowledgements)
+- [Configuration](#configuration)
+- [Authors](#authors)
+
+## Overview
+Movie-Time is a sophisticated web application aimed at enhancing your movie exploration experience. Offering an array of advanced features and an intuitive user interface, Movie-Time enables users to discover trending movies, explore popular titles, and search for specific movies based on various criteria. Whether you're a seasoned movie enthusiast or seeking your next favorite film, Movie-Time is tailored to meet your needs.
+
+| Home Screen | Search by Actor | Search by Dates |
+|-------------|-----------------|-----------------|
+| <img src="preview-images/home-screen.png" alt="Home Screen" width="200" height="150"/> | <img src="preview-images/search-by-actor.png" alt="Search by Actor" width="200" height="150"/> | <img src="preview-images/search-by-dates.png" alt="Search by Dates" width="200" height="150"/> |
+
+| Search History | Movie Data Card | Checkout |
+|----------------|-----------------|----------|
+| <img src="preview-images/search-history.png" alt="Search History" width="200" height="150"/> | <img src="preview-images/movie-data-card.png" alt="Movie Data Card" width="200" height="150"/> | <img src="preview-images/checkout.png" alt="Checkout" width="200" height="150"/> |
 
 
 ## Installation
-1.  Clone the repository: `git clone https://github.com/Solange-s-Courses/ex4-java-neviim-ex4_ariel_amon_noam_mirjani.git`
-2.  Install dependencies: `npm install`
-3.  Start the React development server: `npm start`
-4.  Set up the Spring Boot backend (refer to backend README for instructions)
-    a. Run the SQL server  and create a database named "ex4".
-    The DB  credentials are stored in the application.properties file.
-    b. Run the project
 
-client runs on  http://localhost:3000.
-server runs on  http://localhost:8080/api.
+1. **Clone the repository:**
+      ```bash
+      git clone https://github.com/noammirjani/TMDB-store.git
+      ```
 
-In order to initialize the project make sure to:
-1. When you open the project, if intelliJ propose to "Load Maven Project" do it. You can later reload maven with the "M" icon on the right of the screen, or by right clicking on the pom.xml file and selecting "Maven -> Reload project".
-2. You see red lines in the code? Go to File -> Project Structure -> Project Settings -> Project -> SDK -> and choose your Java SDK
-3. Still see red stuff? Open the same dialog and click on "Fix" if you see some
-4. Edit your configuration "ex4" at the top right. Make sure the "Main class" is set to "hac.DemoApplication" and that Java is set
+2. **Client-side Setup (React)**:
 
+   - Navigate to the `movie-app` directory:
+      ```bash
+      cd movie-app
+      npm install
+      ```
+
+   - Install dependencies:
+       ```bash
+       npm install dotenv --save
+       ```
+
+   - Obtain a new API key from [TMDB API](https://www.themoviedb.org/documentation/api) by signing up or logging in.
+
+   - Create an environment variable file:
+      - Create a file named `.env` in the root directory of the React project (alongside `package.json`).
+      - Add your environment variable using the `REACT_APP_API_KEY=your_api_key_here` format.
+      - Replace `your_api_key_here` with the obtained API key.
+      - Save the file.
+
+   - Start the React development server:
+       ```bash
+       npm start
+       ```
+   - The client runs on: http://localhost:3000
+
+3. **Server-side Setup (Spring Boot)**:
+
+   - Ensure MAMP or a similar database server is running.
+   - Access phpMyAdmin from MAMP and create a database named "ex4".
+   - Update `src/main/resources/application.properties`:
+      - For Mac:
+          ```properties
+          spring.datasource.username=root
+          spring.datasource.password=root
+          ```
+      - For Windows:
+          ```properties
+          spring.datasource.username=root
+          spring.datasource.password=
+          ```
+
+   - Run the Spring Boot server:
+      - Execute the file `src/main/java/hac/DemoApplication.java` to start the server.
+      - The server runs on: http://localhost:8080/api
+
+   **Project Initialization Steps:**
+   - Open the project and follow IntelliJ's prompts to "Load Maven Project".
+   - Ensure the Java SDK is properly configured.
 
 ## Features
 
-### Home Page
+### Captivating Home Page
+The immersive home page of Movie-Time showcases a carefully curated selection of popular movies, providing users with instant access to trending and highly-rated films. The visually appealing layout and intuitive design offer an enjoyable and engaging browsing experience.
 
-The captivating home page of Movie Time sets the stage for an immersive movie discovery journey. With an expertly curated selection of popular movies, you can instantly dive into the world of trending and highly-rated films. The visually appealing layout and intuitive design make browsing an enjoyable and engaging experience.
+### Comprehensive Movie Exploration
+Movie-Time offers an extensive collection of movies, each accompanied by detailed information and engaging visuals. From movie posters to release dates and pricing information, users have access to all necessary details to make informed choices.
 
-### Movie Exploration
+### Diverse Search Options
+Empowering users with multiple search criteria, Movie-Time includes advanced search functionalities:
 
-Movie Time offers an extensive collection of movies, each accompanied by comprehensive details and engaging visuals. From movie posters to release dates and pricing information, you can access all the necessary information to make informed choices. With Movie Time, exploring movies has never been more convenient and exciting.
+- **Search by Genres**: Find movies matching preferred genres like action, comedy, drama, and more.
+- **Search by Movie Name**: Discover movies based on titles or related keywords.
+- **Search by Actor Name**: Explore movies featuring specific actors.
+- **Search by Year Range**: Delve into movies released within a specific range of years.
 
-### Multiple Search Options
+### Seamless Navigation
+Efficiently navigate through search results with Movie-Time's support for paginated results and infinite scroll. Explore multiple pages of movies seamlessly and effortlessly with the infinite scroll functionality.
 
-To cater to diverse movie preferences, Movie Time provides multiple search options that empower users to find exactly what they're looking for. The advanced search functionality includes:
+### Personalized Experience
+Value-driven features such as search history and user registration enhance the personalized experience. Recorded search queries enable revisiting previous searches, providing a clutter-free and tailored exploration experience.
 
--   **Search by Genres**: Find movies that match your preferred genres, such as action, comedy, drama, romance, and more. Explore films that align with your specific taste and preferences.
-
--   **Search by Movie Name**: Enter the title or related keywords to discover movies based on their names. Movie Time intelligently matches your input and presents you with relevant results.
-
--   **Search by Actor Name**: Looking for movies featuring a particular actor? Movie Time allows you to search by the name of your favorite actor. In cases where multiple actors share the same name, the application showcases movies of the most popular actor with that name, ensuring you never miss out on the best performances.
-
--   **Search by Year Range**: Delve into movies released within a specific range of years. Whether you want to explore classic gems or the latest releases, Movie Time has you covered.
-
-
-### Pagination and Infinite Scroll
-
-Movie Time understands the value of efficient navigation through search results. The application seamlessly supports fetching movies in pages, enabling you to effortlessly browse through multiple pages of movie results. With the integration of infinite scroll functionality, Movie Time ensures a smooth and uninterrupted user experience. As you scroll down the page, the application automatically loads more movies, allowing you to explore an extensive collection without any interruptions.
-
-### Search History
-
-Movie Time values user preferences and provides a comprehensive search history feature. Every search query you make is meticulously recorded and stored in the history page. This empowers you to revisit your previous searches, re-search specific queries, or delete individual searches as desired. Additionally, you have the flexibility to clear the entire search history with a single click, maintaining a clutter-free and personalized movie exploration experience.
-
-### User Registration and Session Management
-
-To enhance user engagement and provide personalized features, Movie Time offers user registration functionality. Upon submitting your registration details, the information is securely stored in the database. Subsequently, the system initiates a session to authenticate your identity. The session remains active until you choose to log out or the session expires, ensuring a seamless and secure user experience.
-
+### Secure User Authentication
+Offering user registration functionality, Movie-Time ensures a secure and seamless user experience with session management for user authentication.
 
 ## Technologies Used
 
-Movie Time leverages a cutting-edge tech stack to deliver a robust and performant application:
-
--   **Front-end**: The front-end of Movie Time is built using React, a popular JavaScript library for building user interfaces. The application utilizes various React features, including custom hooks, reducers, useContext, and routing, to create a dynamic and interactive user experience. Additionally, React Bootstrap is employed to enhance the UI with responsive and visually appealing components.
-    React, React Bootstrap, HTML, CSS
-
--   **Back-end**: The back-end of Movie Time is powered by Spring Boot, a powerful framework for building enterprise-grade applications in Java. Spring Boot enables seamless integration with various components, including MySQL for the SQL database. The server code is intelligently structured using modules to ensure maintainability, scalability, and ease of development. Critical sections are meticulously implemented to guarantee thread safety, enabling smooth and efficient processing of concurrent requests.
-    Spring Boot, Java, MySQL (JPA repository for SQL database)
-
--   **API Integration:** The application integrates with a movie API to fetch movie data, including movie details and search results.
+- **Front-end**: React, React Bootstrap, HTML, CSS
+- **Back-end**: Spring Boot, Java, MySQL (JPA repository for SQL database)
+- **API Integration**: TMDB API for movie data
 
 ## Acknowledgements
 
--   Movie data provided by [TMDB API](https://developer.themoviedb.org/docs)
--   React Bootstrap for UI components
--   Spring Boot for backend development
+- Movie data provided by [TMDB API](https://developer.themoviedb.org/docs)
+- React Bootstrap for UI components
+- Spring Boot for backend development
 
 ## Configuration
 
--   Movie API: The application requires an API key for accessing movie data. Replace the placeholder API key in the `useApi` hook with your own API key.
+- **Movie API**: Replace the placeholder API key in the `useApi` hook with your own API key.
 
-
+## Authors
+- **Noam Mirjani**
+- **Ariel Amon**
