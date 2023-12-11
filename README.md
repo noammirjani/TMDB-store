@@ -1,4 +1,4 @@
-![App Screenshot](movie-app/public/assets/logo.png)
+![App Screenshot](client/public/assets/logo.png)
 
 # Movie-Time 
 
@@ -34,9 +34,9 @@ Movie-Time is a sophisticated web application aimed at enhancing your movie expl
 
 2. **Client-side Setup (React)**:
 
-   - Navigate to the `movie-app` directory:
+   - Navigate to the `client` directory:
       ```bash
-      cd movie-app
+      cd client
       npm install
       ```
 
